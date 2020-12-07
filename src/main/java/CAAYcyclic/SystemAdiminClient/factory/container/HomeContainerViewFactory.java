@@ -6,6 +6,8 @@
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
 import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
+import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.bar.MainSideBarController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 
 /**
@@ -15,15 +17,13 @@ import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 public class HomeContainerViewFactory implements IContainerViewAbstractFactory {
 
     @Override
-    public BarController getBarController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ContentPanelController getContentPanelController() {
+        return new DashBoardPanelController();//To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ContentPanelController getContentPanelController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public BarController getBarController() {
+        return new MainSideBarController();//To change body of generated methods, choose Tools | Templates.
     }
-
-    
     
 }
