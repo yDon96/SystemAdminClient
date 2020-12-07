@@ -6,8 +6,6 @@
 package CAAYcyclic.SystemAdiminClient.view.panel.bar;
 
 import CAAYcyclic.SystemAdiminClient.enumeration.ApplicationColor;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JButton;
 
 /**

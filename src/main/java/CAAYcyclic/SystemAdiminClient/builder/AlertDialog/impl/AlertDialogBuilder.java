@@ -12,8 +12,6 @@ import CAAYcyclic.SystemAdiminClient.view.frame.AlertJDialog;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.AlertPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
