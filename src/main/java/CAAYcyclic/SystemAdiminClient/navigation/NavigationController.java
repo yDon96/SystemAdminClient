@@ -58,6 +58,22 @@ public class NavigationController {
      */
     public void performPanelNavigationTo(Class<? extends PanelController> panelControllerName) {
             LOG.log(java.util.logging.Level.INFO, "Perform navigation to panel: {0}.", panelControllerName.getName());
+            ContentPanelController contentPanelController;
+            if(panelControllerMap.containsKey(panelControllerName.getName())){
+                LOG.log(java.util.logging.Level.CONFIG, "Found old instance in map.");
+                contentPanelController = panelControllerMap.get(panelControllerName.getName());
+            }else {
+                try{
+                    LOG.log(java.util.logging.Level.CONFIG, "Create new instance.");
+                    contentPanelController = (ContentPanelController) panelControllerName.newInstance();
+                } catch (IllegalAccessException | InstantiationException exception){
+                    LOG.log(java.util.logging.Level.WARNING, "Could not create a new instance of: {0}.", panelControllerName.getName());
+                    return;
+                }
+            }
+            containerController.getContentPanelController().prepare(new Segue(contentPanelController));
+            containerController.setContentPanel(contentPanelController);
+            containerController.refreshView();
     }
     
     /**
@@ -66,6 +82,21 @@ public class NavigationController {
      */
     public void performBackToStack() {
         LOG.log(java.util.logging.Level.INFO, "Restore last view in stack.");
+        if(panelControllers.size() > 0 && barControllers.size() > 0) {
+            ContentPanelController contentController = panelControllers.remove(panelControllers.size() - 1);
+            BarController barController = barControllers.remove(barControllers.size() - 1);
+            ContentPanelController currentContentController = containerController.getContentPanelController();
+            BarController currentBarController = containerController.getBarController();
+            currentContentController.panelWillDisappear();
+            currentContentController.panelWillDisappear();
+            containerController.setContentPanel(contentController);
+            containerController.setBarPanel(barController);
+            containerController.refreshView();
+            currentContentController.panelDidDisappear();
+            currentContentController.panelDidDisappear();
+        } else {
+            LOG.log(java.util.logging.Level.WARNING, "No view is present in stack history."); 
+        }
     }
     
     /**
@@ -74,6 +105,7 @@ public class NavigationController {
      */
     public void addPanelToMap(ContentPanelController contentPanelController){
         LOG.log(java.util.logging.Level.CONFIG, "Add panel {0} to map.", contentPanelController.getClass().getName()); 
+        panelControllerMap.put(contentPanelController.getClass().getName(),contentPanelController);
     }
     
     /** 
@@ -83,6 +115,8 @@ public class NavigationController {
      */
     private void addViewToStack(BarController barController,ContentPanelController contentPanelController){
         LOG.log(java.util.logging.Level.CONFIG, "Add view [{0}] to stack.",barController.getClass().getName() + "," + contentPanelController.getClass().getName()); 
+        panelControllers.add(contentPanelController);
+        barControllers.add(barController);
     }
     
     /**
@@ -91,18 +125,38 @@ public class NavigationController {
      */
     public void performViewNavigationTo(IContainerViewAbstractFactory factory){
         LOG.log(java.util.logging.Level.INFO, "Perform navigation to view given by: {0}.", factory.getClass().getName()); 
+        ContentPanelController contentController = containerController.getContentPanelController();
+        BarController barController = containerController.getBarController();
+        if(contentController != null && barController != null){
+            addViewToStack(barController,contentController);
+            contentController.panelWillDisappear();
+            barController.panelWillDisappear();
+            panelControllerMap.clear();
+        }
+
+        factory.getContentPanelController();
+        factory.getBarController();
+        containerController.refreshView();
+        if(contentController != null && barController != null){
+            contentController.panelDidDisappear();
+            barController.panelDidDisappear();
+        }    
     }
     
     /**
      *  Lock panel navigation
      */
     public void lockNavigation(){
+        containerController.getBarController().lockNavigation();
+        containerController.getContentPanelController().lockNavigation();
     }
     
     /** 
      * Unlock panel navigation
      */
     public void unlockNavigation(){
+        containerController.getBarController().unlockNavigation();
+        containerController.getContentPanelController().unlockNavigation();
     }
     
     /**
@@ -114,6 +168,7 @@ public class NavigationController {
         LOG.log(java.util.logging.Level.CONFIG, 
                 "Set current container controller: {0}.", 
                 mainViewController.getClass().getName()); 
+        this.containerController = mainViewController;
     }
     
     /**
@@ -125,6 +180,7 @@ public class NavigationController {
         LOG.log(java.util.logging.Level.CONFIG, 
                 "Set current frame controller: {0}.", 
                 myFrameController.getClass().getName()); 
+        this.frameController = myFrameController;
     }
     
     /**
@@ -133,7 +189,7 @@ public class NavigationController {
      * @return ContainerController type.
      */
     public ContainerController getCurrentContainer(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return containerController;
     }
     
     /**
@@ -142,7 +198,7 @@ public class NavigationController {
      * @return MainFrameController type.
      */
     public MainFrameController getFrameController(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return frameController;
     }
     
 }
