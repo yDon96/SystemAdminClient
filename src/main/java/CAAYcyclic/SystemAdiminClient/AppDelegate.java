@@ -5,6 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient;
 
+import CAAYcyclic.SystemAdiminClient.controller.frame.MainFrameController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -26,7 +27,8 @@ public class AppDelegate extends WindowAdapter {
 
 
     public static void main(String[] args) {
- 
+        MainFrameController mainFrameController = new MainFrameController();
+        mainFrameController.setMainFrameWindowsAdapter(AppDelegate.getIstance());
     }
 
     /**
