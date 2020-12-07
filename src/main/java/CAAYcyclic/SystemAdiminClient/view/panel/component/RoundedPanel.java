@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SystemAdministration.view.panel.component;
+package CAAYcyclic.SystemAdiminClient.view.panel.component;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

@@ -7,7 +7,6 @@ package CAAYcyclic.SystemAdiminClient.view.panel.container;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *

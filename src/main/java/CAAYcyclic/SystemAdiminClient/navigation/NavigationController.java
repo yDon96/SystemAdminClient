@@ -78,7 +78,6 @@ public class NavigationController {
     
     /**
      * Pops the top view controller from the navigation stack and updates the display.
-     * @param panelControllerName
      */
     public void performBackToStack() {
         LOG.log(java.util.logging.Level.INFO, "Restore last view in stack.");
@@ -88,12 +87,12 @@ public class NavigationController {
             ContentPanelController currentContentController = containerController.getContentPanelController();
             BarController currentBarController = containerController.getBarController();
             currentContentController.panelWillDisappear();
-            currentContentController.panelWillDisappear();
+            currentBarController.panelWillDisappear();
             containerController.setContentPanel(contentController);
             containerController.setBarPanel(barController);
             containerController.refreshView();
             currentContentController.panelDidDisappear();
-            currentContentController.panelDidDisappear();
+            currentBarController.panelDidDisappear();
         } else {
             LOG.log(java.util.logging.Level.WARNING, "No view is present in stack history."); 
         }
