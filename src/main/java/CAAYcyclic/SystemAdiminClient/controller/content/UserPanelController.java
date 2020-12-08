@@ -7,6 +7,7 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.UserDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.factory.container.UserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
@@ -79,6 +80,7 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
+            startView(new UserFormContainerViewFactory());
         }
     };
 
