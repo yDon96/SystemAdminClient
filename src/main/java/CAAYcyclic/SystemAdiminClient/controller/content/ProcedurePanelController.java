@@ -11,6 +11,7 @@ import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.ProcedureDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
@@ -29,10 +30,9 @@ import javax.swing.table.DefaultTableModel;
 public class ProcedurePanelController extends ContentPanelController {
 
     public DataPanel procedureView;
-    
+
     private static final Logger LOG = Logger.getLogger(ProcedurePanelController.class.getName());
-    
-    
+
     private JButton updateBtn;
     private JButton editBtn;
     private JButton addBtn;
@@ -55,7 +55,7 @@ public class ProcedurePanelController extends ContentPanelController {
         initComponent();
         setButtonAction();
     }
-    
+
     private void initComponent() {
         LOG.log(java.util.logging.Level.CONFIG, "Init Procedure panel component into controller.");
         procedureView = (DataPanel) getPanel();
@@ -65,13 +65,13 @@ public class ProcedurePanelController extends ContentPanelController {
         table = procedureView.getTableView();
         numberOfRow = procedureView.getNumberOfRow();
     }
-    
+
     private void setButtonAction() {
         updateBtn.addMouseListener(updateBtnAction);
         editBtn.addMouseListener(editBtnAction);
         addBtn.addMouseListener(addBtnAction);
     }
-    
+
     private MouseAdapter updateBtnAction = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
@@ -80,27 +80,28 @@ public class ProcedurePanelController extends ContentPanelController {
             startUpdate();
         }
     };
-    
+
     private MouseAdapter editBtnAction = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "Start edit action.");
-            if(table.getRowCount() < 0 || table.getSelectedRow() < 0) {
+            if (table.getRowCount() < 0 || table.getSelectedRow() < 0) {
                 LOG.log(java.util.logging.Level.WARNING, "Number of row is \"0\" or no row is selected.");
-                showError("Edit Error","No element is selected.");
+                showError("Edit Error", "No element is selected.");
                 return;
             }
         }
     };
-    
+
     private final MouseAdapter addBtnAction = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "Start add action.");
-            if(!isLockNavigation()){
+            if (!isLockNavigation()) {
                 addBtn.setSelected(false);
+                startView(new ProductContainerViewFactory());
             } else {
                 LOG.log(java.util.logging.Level.WARNING, "Cannot swich panel, navigation is locked.");
                 showSelectionError("Wait until data ends updating.");
@@ -111,20 +112,20 @@ public class ProcedurePanelController extends ContentPanelController {
     public void setProcedures(List<Procedure> procedures) {
         this.procedures = procedures;
     }
-    
+
     private ApiProcedureDelegate apiDelegate = new ApiProcedureDelegate() {
         @Override
         public void onGetAllSuccess(List<Procedure> procedures) {
             endUpdate();
-            if(procedures.size() > 0){
+            if (procedures.size() > 0) {
                 setProcedures(procedures);
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 Integer rowNumber = table.getRowCount();
                 for (int index = rowNumber - 1; index >= 0; index--) {
                     model.removeRow(index);
                 }
-                for(Procedure procedure: procedures){
-                    Object[] row = { procedure.getId(), procedure.getTitle(), procedure.getDescription() };
+                for (Procedure procedure : procedures) {
+                    Object[] row = {procedure.getId(), procedure.getTitle(), procedure.getDescription()};
                     model.addRow(row);
                 }
                 numberOfRow.setText(String.valueOf(table.getRowCount()));
@@ -147,23 +148,23 @@ public class ProcedurePanelController extends ContentPanelController {
             endUpdate();
         }
     };
-    
-    private void startUpdate(){
+
+    private void startUpdate() {
         updateBtn.setText("Updating...");
         NavigationController.getInstance().lockNavigation();
         ApiManager.getIstance().getProcedures(apiDelegate);
     }
-    
-    private void endUpdate(){
+
+    private void endUpdate() {
         updateBtn.setText("Update");
-        NavigationController.getInstance().unlockNavigation(); 
+        NavigationController.getInstance().unlockNavigation();
     }
-    
-    private void showSelectionError(String message){
-        showError("Error",message);
+
+    private void showSelectionError(String message) {
+        showError("Error", message);
     }
-    
-    private void showError(String title,String message){
+
+    private void showError(String title, String message) {
         AlertDialogBuilder alertBuilder = new AlertDialogBuilder();
         alertBuilder.setTitle(title);
         alertBuilder.setMessage(message);

@@ -1,0 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package CAAYcyclic.SystemAdiminClient.factory.container;
+
+import CAAYcyclic.SystemAdiminClient.controller.content.ProcedureFormPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
+import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+
+/**
+ *
+ * @author Youssef
+ */
+public class ProductContainerViewFactory implements IContainerViewAbstractFactory{
+
+    @Override
+    public BarController getBarController() {
+        return new BackBarController();
+    }
+
+    @Override
+    public ContentPanelController getContentPanelController() {
+        return new ProcedureFormPanelController();
+    }
+    
+}
