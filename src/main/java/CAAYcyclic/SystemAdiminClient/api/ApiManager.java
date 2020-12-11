@@ -6,9 +6,9 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
-import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.api.model.ServerSettings;
-import CAAYcyclic.SystemAdiminClient.api.model.User;
+import CAAYcyclic.SystemAdiminClient.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;

@@ -5,7 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient.api.delegate;
 
-import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import java.util.List;
 
 /**
