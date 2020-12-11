@@ -6,7 +6,6 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.controller.PanelController;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import javax.swing.JPanel;
 
 /**
@@ -17,7 +16,6 @@ public abstract class ContentPanelController extends PanelController implements 
 
     public ContentPanelController() {
         super();
-        NavigationController.getInstance().addPanelToMap(this);
     }
     
     @Override
@@ -29,17 +27,12 @@ public abstract class ContentPanelController extends PanelController implements 
             LOG.log(java.util.logging.Level.WARNING, "Cannot instancete the panel.");
             return;
         }
-        panelWillAppear();
-        getContainerController().setContentPanel(this);
-        panelDidAppear();
     }
     
     @Override
     public void setContentPanel(JPanel panel){
         LOG.log(java.util.logging.Level.INFO, "Set panel: {0}", panel.getClass().getName());
         setPanel(panel);
-        getContainerController().setContentPanel(this);
-        panelDidAppear();
     }
     
     

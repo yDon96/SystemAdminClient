@@ -5,9 +5,6 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller;
 
-import CAAYcyclic.SystemAdiminClient.controller.container.ContainerController;
-import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -20,7 +17,6 @@ public abstract class PanelController implements IPanelController{
     
     private JPanel panel;
     
-    private ContainerController containerController;
     
     private boolean lockNavigation = false;
     
@@ -28,19 +24,13 @@ public abstract class PanelController implements IPanelController{
 
     public PanelController() {
         LOG = getLogger();
-        containerController = NavigationController.getInstance().getCurrentContainer();
     }
 
     public void setPanel(JPanel panel) {
         this.panel = panel;
     }
-
-    public void setContainerController(ContainerController containerController) {
-        this.containerController = containerController;
     }
 
-    public ContainerController getContainerController() {
-        return containerController;
     }
     
 
@@ -79,39 +69,12 @@ public abstract class PanelController implements IPanelController{
     public void panelDidDisappear(){
         LOG.log(java.util.logging.Level.INFO, "{0} did disappear.", panel.getClass().getName());
     }
-    /**
-     * Notifies the view controller that a navigation event is about to be performed.
-     * Return an object "Segue" that contain all info about new Panel.
-     * @param segue
-     */
-    public abstract void prepare(Segue segue);
     
-    /**
-     * Initiates the new panel with the specified panel class from the current panel controller's 
-     * @param panelName PanelController
-     */
-    public void startPanel(Class<? extends PanelController> panelName){
-        LOG.log(java.util.logging.Level.INFO, "Switch current panel with: {0}", panelName.getName());
-        NavigationController.getInstance().performPanelNavigationTo(panelName);
+    @Override
+    public JPanel getPanel() {
+        return panel;
     }
-    /**
-     * Initiates the new view with the specified view factory from the current panel controller's 
-     * @param factory IContainerViewAbstractFactory
-     */
-    public void startView(IContainerViewAbstractFactory factory){
-        LOG.log(java.util.logging.Level.INFO, "Switch current view with the one given from: {0}", factory.getClass().getName());
-        NavigationController.getInstance().performViewNavigationTo(factory);
-    }
-    
-    /**
-     * Pops to last view controller from the navigation stack and updates the display.
-     */
-    public void popBackView(){
-        LOG.log(java.util.logging.Level.INFO, "Pop back to last view.");
-        if(lockNavigation == false){
-            NavigationController.getInstance().performBackToStack();
-        } else {
-            LOG.log(java.util.logging.Level.WARNING, "Navigation is locked.");
+
         }
     }
     

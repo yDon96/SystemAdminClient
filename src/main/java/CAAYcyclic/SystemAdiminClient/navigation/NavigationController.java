@@ -5,199 +5,244 @@
  */
 package CAAYcyclic.SystemAdiminClient.navigation;
 
-import CAAYcyclic.SystemAdiminClient.controller.PanelController;
-import CAAYcyclic.SystemAdiminClient.controller.frame.MainFrameController;
-import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
-import CAAYcyclic.SystemAdiminClient.controller.container.ContainerController;
+import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
-import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
+import CAAYcyclic.SystemAdiminClient.view.frame.MainFrame;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Youssef
- * 
- * A navigation controller is a controller that helps container view controller to 
- * manage one or more child view controllers in a navigation interface.
+ *
+ * A navigation controller is a controller that helps container view controller
+ * to manage one or more child view controllers in a navigation interface.
  */
 public class NavigationController {
-    
-    private static NavigationController instance = null;
-    
-    private static final Logger LOG = Logger.getLogger(NavigationController.class.getName()); 
-         
-    private MainFrameController frameController;
 
-    private ContainerController containerController;
+    private static final Logger LOG = Logger.getLogger(NavigationController.class.getName());
 
-    private final ArrayList<ContentPanelController> panelControllers;
+    private MainFrame currentFrame;
 
-    private final ArrayList<BarController> barControllers;
-    
-    private final HashMap<String,ContentPanelController> panelControllerMap;
+    private final ArrayList<IPanelController> panelControllers;
 
+    private final ArrayList<IPanelController> barControllers;
 
-    private NavigationController() {
+    private final HashMap<String, IPanelController> panelControllerMap;
+
+    public NavigationController(MainFrame frame) {
         LOG.log(java.util.logging.Level.CONFIG, "Init.");
         panelControllers = new ArrayList<>();
         barControllers = new ArrayList<>();
         panelControllerMap = new HashMap<>();
+        currentFrame = frame;
     }
 
-    public static NavigationController getInstance() {
-        if(instance==null)
-            instance = new NavigationController();
-        return instance;
-    }
-    
     /**
-     * Presents the specified content panel controller in the navigation interface.
-     * @param panelControllerName
+     * Presents the specified content panel controller in the navigation
+     * interface.
+     *
+     * @param panelController panel's controller to visualize in the current view.
      */
-    public void performPanelNavigationTo(Class<? extends PanelController> panelControllerName) {
-            LOG.log(java.util.logging.Level.INFO, "Perform navigation to panel: {0}.", panelControllerName.getName());
-            ContentPanelController contentPanelController;
-            if(panelControllerMap.containsKey(panelControllerName.getName())){
-                LOG.log(java.util.logging.Level.CONFIG, "Found old instance in map.");
-                contentPanelController = panelControllerMap.get(panelControllerName.getName());
-            }else {
-                try{
-                    LOG.log(java.util.logging.Level.CONFIG, "Create new instance.");
-                    contentPanelController = (ContentPanelController) panelControllerName.newInstance();
-                } catch (IllegalAccessException | InstantiationException exception){
-                    LOG.log(java.util.logging.Level.WARNING, "Could not create a new instance of: {0}.", panelControllerName.getName());
-                    return;
-                }
-            }
-            containerController.getContentPanelController().prepare(new Segue(contentPanelController));
-            containerController.setContentPanel(contentPanelController);
-            containerController.refreshView();
+    public void performPanelNavigationTo(IPanelController panelController) {
+        LOG.log(java.util.logging.Level.INFO, "Perform navigation to panel: {0}.", panelController.getClass().getName());
+        IPanelController currentContentController = panelControllers.remove(panelControllers.size() - 1);
+        notifyPanelWillDisappear(currentContentController);
+        notifyPanelWillAppear(panelController);
+        panelControllers.add(panelController);
+        addPanelToMap(currentContentController);
+        currentFrame.setContentPanel(panelController.getPanel());
+        notifyPanelDidAppear(panelController);
+        notifyPanelDidDisappear(currentContentController);
     }
     
     /**
-     * Pops the top view controller from the navigation stack and updates the display.
+     * Retrive panel's controller from panelController's map.
+     * 
+     * @param panelName Key value.
+     * @return IPanelController that corrisponde to key value, null otherwise.
+     */
+    public IPanelController retrivePanelFromMap(String panelName) {
+        if(panelControllerMap.containsKey(panelName)){
+            return panelControllerMap.get(panelName);
+        }else{
+            return null;
+        }
+    }
+
+
+    /**
+     * Pops the top view controller from the navigation stack and updates the
+     * display.
      */
     public void performBackToStack() {
         LOG.log(java.util.logging.Level.INFO, "Restore last view in stack.");
-        if(panelControllers.size() > 0 && barControllers.size() > 0) {
-            ContentPanelController contentController = panelControllers.remove(panelControllers.size() - 1);
-            BarController barController = barControllers.remove(barControllers.size() - 1);
-            ContentPanelController currentContentController = containerController.getContentPanelController();
-            BarController currentBarController = containerController.getBarController();
-            currentContentController.panelWillDisappear();
-            currentBarController.panelWillDisappear();
-            containerController.setContentPanel(contentController);
-            containerController.setBarPanel(barController);
-            containerController.refreshView();
-            currentContentController.panelDidDisappear();
-            currentBarController.panelDidDisappear();
+        if (panelControllers.size() > 0 && barControllers.size() > 0) {
+            IPanelController currentContentController = panelControllers.remove(panelControllers.size() - 1);
+            IPanelController currentBarController = barControllers.remove(barControllers.size() - 1);
+            IPanelController contentController = panelControllers.get(panelControllers.size() - 1);
+            IPanelController barController = barControllers.get(barControllers.size() - 1);
+            notifyViewWillDisappear(currentBarController, currentContentController);
+            notifyViewWillAppear(barController, contentController);
+            currentFrame.setContentPanel(contentController.getPanel());
+            currentFrame.setBarPanel(barController.getPanel());
+            notifyViewDidAppear(barController, contentController);
+            notifyViewDidDisappear(currentBarController, currentContentController);
         } else {
-            LOG.log(java.util.logging.Level.WARNING, "No view is present in stack history."); 
+            LOG.log(java.util.logging.Level.WARNING, "No view is present in stack history.");
         }
     }
-    
+
     /**
-     * Add content view controller to HashMap.
-     * @param contentPanelController
+     * Add content's controller to HashMap.
+     *
+     * @param contentPanelController 
      */
-    public void addPanelToMap(ContentPanelController contentPanelController){
-        LOG.log(java.util.logging.Level.CONFIG, "Add panel {0} to map.", contentPanelController.getClass().getName()); 
-        panelControllerMap.put(contentPanelController.getClass().getName(),contentPanelController);
+    public void addPanelToMap(IPanelController contentPanelController) {
+        LOG.log(java.util.logging.Level.CONFIG, "Add panel {0} to map.", contentPanelController.getClass().getName());
+        panelControllerMap.put(contentPanelController.getClass().getName(), contentPanelController);
     }
-    
-    /** 
-     * Add view controller(BarController, ContentPanelController) to stack.
-     * @param barController
-     * @param contentPanelController
+
+    /**
+     * Add view controller(bar's controller and content's controller) to stack.
+     *
+     * @param barController bar's controller to visualize.
+     * @param contentPanelController content's controller to visualize.
      */
-    private void addViewToStack(BarController barController,ContentPanelController contentPanelController){
-        LOG.log(java.util.logging.Level.CONFIG, "Add view [{0}] to stack.",barController.getClass().getName() + "," + contentPanelController.getClass().getName()); 
+    private void addViewToStack(IPanelController barController, IPanelController contentPanelController) {
+        LOG.log(java.util.logging.Level.CONFIG, "Add view [{0}] to stack.", barController.getClass().getName() + "," + contentPanelController.getClass().getName());
         panelControllers.add(contentPanelController);
         barControllers.add(barController);
     }
-    
-    /**
-     * Presents the specified view controller defined by the factory in the navigation interface.
-     * @param factory ContainerViewAbstractFactory
-     */
-    public void performViewNavigationTo(IContainerViewAbstractFactory factory){
-        LOG.log(java.util.logging.Level.INFO, "Perform navigation to view given by: {0}.", factory.getClass().getName()); 
-        ContentPanelController contentController = containerController.getContentPanelController();
-        BarController barController = containerController.getBarController();
-        if(contentController != null && barController != null){
-            addViewToStack(barController,contentController);
-            contentController.panelWillDisappear();
-            barController.panelWillDisappear();
-            panelControllerMap.clear();
-        }
 
-        factory.getContentPanelController();
-        factory.getBarController();
-        containerController.refreshView();
-        if(contentController != null && barController != null){
-            contentController.panelDidDisappear();
-            barController.panelDidDisappear();
-        }    
+    /**
+     * Presents the specified view controller defined by the  bar's controller and content's controller.
+     *
+     * @param barController bar's controller to visualize.
+     * @param contentPanelController content's controller to visualize.
+     */
+    public void performViewNavigationTo(IPanelController barController, IPanelController contentPanelController) {
+        LOG.log(java.util.logging.Level.INFO, "Perform navigation to view given by: {0}.", barController.getClass().getName() + " " + contentPanelController.getClass().getName());
+        if (!isCurrentView(barController, contentPanelController)) {
+            int panelStackSize = panelControllers.size();
+            int barStackSize = barControllers.size();
+            if (panelStackSize > 0 && barStackSize > 0) {
+                notifyViewWillDisappear(barControllers.get(barStackSize - 1), panelControllers.get(panelStackSize - 1));
+                panelControllerMap.clear();
+            }
+            addViewToStack(barController, contentPanelController);
+            notifyViewWillAppear(barController, contentPanelController);
+            currentFrame.setBarPanel(barController.getPanel());
+            currentFrame.setContentPanel(contentPanelController.getPanel());
+            notifyViewDidAppear(barController, contentPanelController);
+            if (panelStackSize > 0 && barStackSize > 0) {
+                notifyViewDidDisappear(barControllers.get(barStackSize - 1), panelControllers.get(panelStackSize - 1));
+            }
+        } else {
+            LOG.log(java.util.logging.Level.WARNING, "Trying to perform navigation to the same current view.");
+        }
+    }
+
+    /**
+     * Notify both bar and content that panels is going to be no more visible.
+     * 
+     * @param barController bar's controller to notify.
+     * @param contentPanelController content's controller to notify.
+     */
+    private void notifyViewWillDisappear(IPanelController barController, IPanelController contentPanelController) {
+        contentPanelController.panelWillDisappear();
+        barController.panelWillDisappear();
+    }
+
+    /**
+     * Notify both bar and content that panels is no more visible.
+     * 
+     * @param barController bar's controller to notify.
+     * @param contentPanelController content's controller to notify.
+     */
+    private void notifyViewDidDisappear(IPanelController barController, IPanelController contentPanelController) {
+        contentPanelController.panelDidDisappear();
+        barController.panelDidDisappear();
+    }
+
+    /**
+     * Notify both bar and content that panels is going to be visible.
+     * 
+     * @param barController bar's controller to notify.
+     * @param contentPanelController content's controller to notify.
+     */
+    private void notifyViewWillAppear(IPanelController barController, IPanelController contentPanelController) {
+        contentPanelController.panelWillAppear();
+        barController.panelWillAppear();
+    }
+
+    /**
+     * Notify both bar and content controller that panels is visible.
+     * 
+     * @param barController bar's controller to notify.
+     * @param contentPanelController content's controller to notify.
+     */
+    private void notifyViewDidAppear(IPanelController barController, IPanelController contentPanelController) {
+        contentPanelController.panelDidAppear();
+        barController.panelDidAppear();
+    }
+
+    /**
+     * Notify panel's controller that panel is going to be no more visible.
+     * 
+     * @param controller panel's controller to notify.
+     */
+    private void notifyPanelWillDisappear(IPanelController controller) {
+        controller.panelWillDisappear();
+    }
+
+    /**
+     * Notify panel's controller that panel is no more visible.
+     * 
+     * @param controller panel's controller to notify.
+     */
+    private void notifyPanelDidDisappear(IPanelController controller) {
+        controller.panelDidDisappear();
+    }
+
+    /**
+     * Notify panel's controller that panel is going to be visible.
+     * 
+     * @param controller panel's controller to notify.
+     */
+    private void notifyPanelWillAppear(IPanelController controller) {
+        controller.panelWillAppear();
     }
     
     /**
-     *  Lock panel navigation
+     * Notify panel's controller that panel is visible.
+     * 
+     * @param controller panel's controller to notify.
      */
-    public void lockNavigation(){
-        containerController.getBarController().lockNavigation();
-        containerController.getContentPanelController().lockNavigation();
+    private void notifyPanelDidAppear(IPanelController controller) {
+        controller.panelDidAppear();
     }
-    
-    /** 
-     * Unlock panel navigation
-     */
-    public void unlockNavigation(){
-        containerController.getBarController().unlockNavigation();
-        containerController.getContentPanelController().unlockNavigation();
-    }
-    
+
     /**
-     * Register the current container associated 
-     * with the currently visible panel
-     * @param mainViewController
+     * Get the displayed frame.
      */
-    public void registerContainerController(ContainerController mainViewController){
-        LOG.log(java.util.logging.Level.CONFIG, 
-                "Set current container controller: {0}.", 
-                mainViewController.getClass().getName()); 
-        this.containerController = mainViewController;
+    public JFrame getCurrentFrame() {
+        return currentFrame;
     }
-    
+
     /**
-     * Register the current frame associated 
-     * with the currently visible container.
-     * @param myFrameController
+     * Check if barController and contentPanelController determinate the current view controller.
+     * 
+     * @param barController controller of bar panel.
+     * @param contentPanelController controller of content panel.
+     * @return True if the two controller are present as last controller of the stack, False otherwise.
      */
-    public void registerFrameController(MainFrameController myFrameController){
-        LOG.log(java.util.logging.Level.CONFIG, 
-                "Set current frame controller: {0}.", 
-                myFrameController.getClass().getName()); 
-        this.frameController = myFrameController;
+    private boolean isCurrentView(IPanelController barController, IPanelController contentPanelController) {
+        if(barControllers.size() <=0 && panelControllers.size() <= 0){
+            return false;
+        }
+        return barController.equals(barControllers.get(barControllers.size() - 1)) && contentPanelController.equals(panelControllers.get(panelControllers.size() - 1));
     }
-    
-    /**
-     * The container controller associated 
-     * with the currently visible panel in the navigation interface.
-     * @return ContainerController type.
-     */
-    public ContainerController getCurrentContainer(){
-        return containerController;
-    }
-    
-    /**
-     * The frame controller associated 
-     * with the currently visible container in the navigation interface.
-     * @return MainFrameController type.
-     */
-    public MainFrameController getFrameController(){
-        return frameController;
-    }
-    
+
 }

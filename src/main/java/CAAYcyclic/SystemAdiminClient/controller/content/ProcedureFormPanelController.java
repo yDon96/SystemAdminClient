@@ -94,13 +94,11 @@ public class ProcedureFormPanelController extends ContentPanelController {
         Procedure procedure = generateProcedure();
         if(procedure != null){
             procedureForm.setSavingText();
-            NavigationController.getInstance().lockNavigation();
             ApiManager.getIstance().createProcedure(procedure, apiDelegate);
         }
     }
     
     private void endSavingProcedure() {
-        NavigationController.getInstance().unlockNavigation();
         procedureForm.setSaveText();
     }
     
@@ -124,7 +122,6 @@ public class ProcedureFormPanelController extends ContentPanelController {
         @Override
         public void onCreateSuccess() {
             endSavingProcedure();
-            popBackView();
         }
     };
 
@@ -133,11 +130,4 @@ public class ProcedureFormPanelController extends ContentPanelController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-        if(segue != null){
-            ProcedurePanelController procedurePanelController = (ProcedurePanelController) segue.getSeguePanelController();
-        }
-    }
-    
 }

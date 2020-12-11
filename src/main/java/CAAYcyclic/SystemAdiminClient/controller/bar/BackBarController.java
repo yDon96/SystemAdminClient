@@ -44,7 +44,6 @@ public class BackBarController extends BarController {
     
     private void backAction() {
         if(!isLockNavigation()){
-            popBackView();
         } else {
             LOG.log(java.util.logging.Level.WARNING, "Cannot popBack, navigation is locked.");
         }
@@ -55,7 +54,4 @@ public class BackBarController extends BarController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
 }

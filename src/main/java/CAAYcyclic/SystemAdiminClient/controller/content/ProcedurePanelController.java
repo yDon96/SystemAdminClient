@@ -11,8 +11,6 @@ import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.ProcedureDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
-import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
@@ -101,7 +99,6 @@ public class ProcedurePanelController extends ContentPanelController {
             LOG.log(java.util.logging.Level.INFO, "Start add action.");
             if (!isLockNavigation()) {
                 addBtn.setSelected(false);
-                startView(new ProductContainerViewFactory());
             } else {
                 LOG.log(java.util.logging.Level.WARNING, "Cannot swich panel, navigation is locked.");
                 showSelectionError("Wait until data ends updating.");
@@ -151,13 +148,11 @@ public class ProcedurePanelController extends ContentPanelController {
 
     private void startUpdate() {
         updateBtn.setText("Updating...");
-        NavigationController.getInstance().lockNavigation();
         ApiManager.getIstance().getProcedures(apiDelegate);
     }
 
     private void endUpdate() {
         updateBtn.setText("Update");
-        NavigationController.getInstance().unlockNavigation();
     }
 
     private void showSelectionError(String message) {
@@ -177,8 +172,5 @@ public class ProcedurePanelController extends ContentPanelController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
 
 }
