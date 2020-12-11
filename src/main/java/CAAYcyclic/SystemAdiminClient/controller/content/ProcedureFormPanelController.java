@@ -7,15 +7,12 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
-import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.AlertDialogBuilder;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
+import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -122,6 +119,7 @@ public class ProcedureFormPanelController extends ContentPanelController {
         @Override
         public void onCreateSuccess() {
             endSavingProcedure();
+            getCoordinator().popBack();
         }
     };
 
