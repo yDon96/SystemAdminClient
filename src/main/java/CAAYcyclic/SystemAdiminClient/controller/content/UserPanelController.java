@@ -7,8 +7,6 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.UserDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
-import CAAYcyclic.SystemAdiminClient.factory.container.UserFormContainerViewFactory;
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,13 +34,13 @@ public class UserPanelController extends ContentPanelController {
         Director director = new Director();
         director.constructUserDataPanel(userDataPanelBuilder);
         setContentPanel(userDataPanelBuilder.getResults());
+        initComponent();
+        setButtonAction();
     }
 
     @Override
     public void panelDidAppear() {
-        super.panelDidAppear();
-        initComponent();
-        setButtonAction();
+        super.panelDidAppear();      
     }
     
     
@@ -80,7 +78,7 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            startView(new UserFormContainerViewFactory());
+            getCoordinator().navigateToUserForm();
         }
     };
 
@@ -89,8 +87,5 @@ public class UserPanelController extends ContentPanelController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
     
 }

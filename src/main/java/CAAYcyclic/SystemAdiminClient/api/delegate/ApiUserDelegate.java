@@ -5,7 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient.api.delegate;
 
-import CAAYcyclic.SystemAdiminClient.api.model.User;
+import CAAYcyclic.SystemAdiminClient.model.User;
 import java.util.List;
 
 /**

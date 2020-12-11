@@ -7,13 +7,10 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
-import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.AlertDialogBuilder;
+import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.ProcedureDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
-import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,15 +42,15 @@ public class ProcedurePanelController extends ContentPanelController {
         ProcedureDataPanelBuilder dataPanelBuilder = new ProcedureDataPanelBuilder();
         Director director = new Director();
         director.constructProcedureDataPanel(dataPanelBuilder);
-        //TODo: SetContentPanel
         setContentPanel(dataPanelBuilder.getResults());
+        initComponent();
+        setButtonAction();
     }
 
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
-        initComponent();
-        setButtonAction();
+
     }
 
     private void initComponent() {
@@ -90,6 +87,9 @@ public class ProcedurePanelController extends ContentPanelController {
                 LOG.log(java.util.logging.Level.WARNING, "Number of row is \"0\" or no row is selected.");
                 showError("Edit Error", "No element is selected.");
                 return;
+            } else {
+                editBtn.setSelected(false);
+                getCoordinator().navigateToProcedureForm(procedures.get(table.getSelectedRow()));
             }
         }
     };
@@ -101,7 +101,7 @@ public class ProcedurePanelController extends ContentPanelController {
             LOG.log(java.util.logging.Level.INFO, "Start add action.");
             if (!isLockNavigation()) {
                 addBtn.setSelected(false);
-                startView(new ProductContainerViewFactory());
+                getCoordinator().navigateToProcedureForm(null);
             } else {
                 LOG.log(java.util.logging.Level.WARNING, "Cannot swich panel, navigation is locked.");
                 showSelectionError("Wait until data ends updating.");
@@ -151,13 +151,11 @@ public class ProcedurePanelController extends ContentPanelController {
 
     private void startUpdate() {
         updateBtn.setText("Updating...");
-        NavigationController.getInstance().lockNavigation();
         ApiManager.getIstance().getProcedures(apiDelegate);
     }
 
     private void endUpdate() {
         updateBtn.setText("Update");
-        NavigationController.getInstance().unlockNavigation();
     }
 
     private void showSelectionError(String message) {
@@ -169,7 +167,7 @@ public class ProcedurePanelController extends ContentPanelController {
         alertBuilder.setTitle(title);
         alertBuilder.setMessage(message);
         alertBuilder.setDefaultPositiveAction();
-        alertBuilder.show();
+        getCoordinator().showAlert(alertBuilder);
     }
 
     @Override
@@ -177,8 +175,5 @@ public class ProcedurePanelController extends ContentPanelController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
 
 }

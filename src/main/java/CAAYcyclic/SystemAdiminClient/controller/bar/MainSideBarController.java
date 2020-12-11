@@ -5,16 +5,10 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.bar;
 
-import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
 import CAAYcyclic.SystemAdiminClient.view.panel.bar.MainSideBarPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
-import CAAYcyclic.SystemAdiminClient.controller.bar.IBarController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ProcedurePanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.UserPanelController;
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import java.util.logging.Logger;
 
 /**
@@ -34,11 +28,16 @@ public class MainSideBarController extends BarController {
     public MainSideBarController() {
         super();
         setBarPanel(MainSideBarPanel.class);
+        initComponet();
     }
 
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
+        
+    }
+    
+    private void initComponet(){
         this.mainSideBarView = (MainSideBarPanel) getPanel();
         dashBtn = mainSideBarView.getDashBtn();
         procedureBtn = mainSideBarView.getProcedureBtn();
@@ -53,7 +52,8 @@ public class MainSideBarController extends BarController {
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "DashButton selected.");
-            swichAction(dashBtn, DashBoardPanelController.class);
+            swichAction(dashBtn);
+            getCoordinator().switchPanelToDashboard();
         }
     };
 
@@ -62,7 +62,8 @@ public class MainSideBarController extends BarController {
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "ProcedureButton selected.");
-            swichAction(procedureBtn, ProcedurePanelController.class);
+            swichAction(procedureBtn);
+            getCoordinator().switchPanelToProcedurePanel();
         }
     };
 
@@ -71,14 +72,14 @@ public class MainSideBarController extends BarController {
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "UserButton selected.");
-            swichAction(userBtn, UserPanelController.class);
+            swichAction(userBtn);
+            getCoordinator().switchPanelToUserPanel();
         }
     };
 
-    private void swichAction(JButton buttonToHighlight, Class<? extends ContentPanelController> panelClass) {
+    private void swichAction(JButton buttonToHighlight) {
         if (!isLockNavigation()) {
             mainSideBarView.highlightButton(buttonToHighlight);
-            startPanel(panelClass);
         } else {
             LOG.log(java.util.logging.Level.WARNING, "Cannot swich panel, navigation is locked.");
         }
@@ -89,8 +90,4 @@ public class MainSideBarController extends BarController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-
-    }
 }

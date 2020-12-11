@@ -5,7 +5,10 @@
  */
 package CAAYcyclic.SystemAdiminClient;
 
-import CAAYcyclic.SystemAdiminClient.controller.frame.MainFrameController;
+import CAAYcyclic.SystemAdiminClient.coordinator.impl.AppCoordinator;
+import CAAYcyclic.SystemAdiminClient.coordinator.ICoordinator;
+import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
+import CAAYcyclic.SystemAdiminClient.view.frame.MainFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -16,6 +19,10 @@ import java.awt.event.WindowEvent;
 public class AppDelegate extends WindowAdapter {
 
     private static AppDelegate istance = null;
+    
+    private MainFrame mainFrame;
+    
+    private ICoordinator appCordinator;
 
     private AppDelegate() {}
 
@@ -27,8 +34,16 @@ public class AppDelegate extends WindowAdapter {
 
 
     public static void main(String[] args) {
-        MainFrameController mainFrameController = new MainFrameController();
-        mainFrameController.setMainFrameWindowsAdapter(AppDelegate.getIstance());
+        AppDelegate.getIstance().mainFrame = new MainFrame();
+        AppDelegate.getIstance().mainFrame.setWindowsAdapter(istance);
+        AppDelegate.getIstance().appCordinator = new AppCoordinator(new NavigationController(AppDelegate.getIstance().mainFrame));       
+        AppDelegate.getIstance().appCordinator.start();
+        AppDelegate.getIstance().mainFrame.setVisible(true);
+        AppDelegate.getIstance().mainFrame.pack();
+    }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
     }
 
     /**

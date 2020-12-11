@@ -12,25 +12,20 @@ import javax.swing.JPanel;
  *
  * @author Youssef
  */
-public abstract class BarController extends PanelController implements IBarController  {
-    
-        
+public abstract class BarController extends PanelController implements IBarController {
+
     public BarController() {
         super();
     }
-    
-    public void setBarPanel(Class<? extends JPanel> panelName){
+
+    public void setBarPanel(Class<? extends JPanel> panelName) {
         LOG.log(java.util.logging.Level.INFO, "Set panel: {0}", panelName.getClass().getName());
-        try{
+        try {
             this.setPanel((JPanel) panelName.newInstance());
-        } catch (IllegalAccessException | InstantiationException exception){
+        } catch (IllegalAccessException | InstantiationException exception) {
             LOG.log(java.util.logging.Level.WARNING, "Cannot instancete the panel.");
             return;
         }
-        panelWillAppear();
-        getContainerController().setBarPanel(this);
-        panelDidAppear();
     }
-    
-    
+
 }

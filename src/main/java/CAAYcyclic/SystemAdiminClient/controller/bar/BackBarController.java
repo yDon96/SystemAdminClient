@@ -5,7 +5,6 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.bar;
 
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.bar.BackSideBarPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,22 +17,25 @@ import java.util.logging.Logger;
 public class BackBarController extends BarController {
 
     private BackSideBarPanel mainSideBarView;
-    
+
     private static final Logger LOG = Logger.getLogger(BackBarController.class.getName());
 
     public BackBarController() {
         super();
         setBarPanel(BackSideBarPanel.class);
+        initComponent();
     }
-    
+
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
-        this.mainSideBarView = (BackSideBarPanel) getPanel();
-         mainSideBarView.getBackBtn().addMouseListener(backBtnAction);
     }
 
-     
+    private void initComponent() {
+        this.mainSideBarView = (BackSideBarPanel) getPanel();
+        mainSideBarView.getBackBtn().addMouseListener(backBtnAction);
+    }
+
     private MouseAdapter backBtnAction = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
@@ -41,10 +43,10 @@ public class BackBarController extends BarController {
             backAction();
         }
     };
-    
+
     private void backAction() {
-        if(!isLockNavigation()){
-            popBackView();
+        if (!isLockNavigation()) {
+            getCoordinator().popBack();
         } else {
             LOG.log(java.util.logging.Level.WARNING, "Cannot popBack, navigation is locked.");
         }
@@ -55,7 +57,4 @@ public class BackBarController extends BarController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
 }

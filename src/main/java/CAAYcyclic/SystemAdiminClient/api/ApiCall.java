@@ -5,8 +5,8 @@
  */
 package CAAYcyclic.SystemAdiminClient.api;
 
-import CAAYcyclic.SystemAdiminClient.api.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.api.model.User;
+import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.model.User;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

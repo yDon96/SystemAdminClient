@@ -5,11 +5,8 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DashBoardPanel;
 import java.util.logging.Logger;
-
-import javax.swing.*;
 
 /**
  *
@@ -34,9 +31,4 @@ public class DashBoardPanelController extends ContentPanelController {
         return LOG;
     }
 
-    @Override
-    public void prepare(Segue segue) {
-    }
-
-    
 }
