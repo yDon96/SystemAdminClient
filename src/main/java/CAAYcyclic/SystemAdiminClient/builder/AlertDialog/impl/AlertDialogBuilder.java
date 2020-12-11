@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.builder.AlertDialog;
+package CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl;
 
-import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.AlertBuilder;
-import CAAYcyclic.SystemAdiminClient.controller.frame.MainFrameController;
-import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.view.frame.AlertJDialog;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.AlertPanel;
 import java.awt.event.MouseAdapter;
@@ -15,13 +12,15 @@ import java.awt.event.MouseEvent;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.IAlertBuilder;
 
 /**
  *
  * @author Youssef
  */
-public class AlertDialogBuilder implements AlertBuilder {
+public class AlertDialogBuilder implements IAlertBuilder {
     
     private String title;
     private String message;
@@ -30,8 +29,20 @@ public class AlertDialogBuilder implements AlertBuilder {
     private MouseAdapter positiveAction;
     private MouseAdapter negativeAction;
     private AlertJDialog dialog;
+    private JFrame parentFrame;
     
     private static final Logger LOG = Logger.getLogger(AlertDialogBuilder.class.getName());
+
+    public AlertDialogBuilder() {
+    }
+    
+    public AlertDialogBuilder(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+    }
+
+    public void setParentFrame(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+    }
 
     /**
      * Set title or will be display the default one.
@@ -71,13 +82,13 @@ public class AlertDialogBuilder implements AlertBuilder {
         this.negativeAction = action;
     }
     
+    @Override
     public void show() {
-        MainFrameController mainFrameController = NavigationController.getInstance().getFrameController();
-        if(mainFrameController == null){
+        if(parentFrame == null){
             LOG.log(java.util.logging.Level.SEVERE, "Dialog parent frame not exist.");
             return;
         }
-        dialog = new AlertJDialog(mainFrameController.getMainFrame(), true);
+        dialog = new AlertJDialog(parentFrame, true);
         dialog.setContentPane(getAlertPanel());
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
