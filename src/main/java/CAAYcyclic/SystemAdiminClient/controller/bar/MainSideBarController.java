@@ -9,7 +9,6 @@ import CAAYcyclic.SystemAdiminClient.view.panel.bar.MainSideBarPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
-import CAAYcyclic.SystemAdiminClient.navigation.Segue;
 import java.util.logging.Logger;
 
 /**
@@ -29,11 +28,16 @@ public class MainSideBarController extends BarController {
     public MainSideBarController() {
         super();
         setBarPanel(MainSideBarPanel.class);
+        initComponet();
     }
 
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
+        
+    }
+    
+    private void initComponet(){
         this.mainSideBarView = (MainSideBarPanel) getPanel();
         dashBtn = mainSideBarView.getDashBtn();
         procedureBtn = mainSideBarView.getProcedureBtn();
@@ -49,6 +53,7 @@ public class MainSideBarController extends BarController {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "DashButton selected.");
             swichAction(dashBtn);
+            getCoordinator().switchPanelToDashboard();
         }
     };
 
@@ -58,6 +63,7 @@ public class MainSideBarController extends BarController {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "ProcedureButton selected.");
             swichAction(procedureBtn);
+            getCoordinator().switchPanelToProcedurePanel();
         }
     };
 
@@ -67,6 +73,7 @@ public class MainSideBarController extends BarController {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "UserButton selected.");
             swichAction(userBtn);
+            getCoordinator().switchPanelToUserPanel();
         }
     };
 

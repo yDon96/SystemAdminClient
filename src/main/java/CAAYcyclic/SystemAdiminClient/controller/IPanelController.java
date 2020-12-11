@@ -5,6 +5,8 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller;
 
+import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
+import CAAYcyclic.SystemAdiminClient.model.Parcel;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
@@ -13,46 +15,55 @@ import javax.swing.JPanel;
  * @author Youssef
  */
 public interface IPanelController {
-    
+
     /**
      * Panel associeted to panel controller
      */
     JPanel getPanel();
-    
+
     /**
-     *  Notifies the panel controller that its panel is about to be added to a panel hierarchy.
+     * Notifies the panel controller that its panel is about to be added to a
+     * panel hierarchy.
      */
     public void panelWillAppear();
-    
+
     /**
-     *  Notifies the panel controller that its panel was added to a panel hierarchy.
+     * Notifies the panel controller that its panel was added to a panel
+     * hierarchy.
      */
     public void panelDidAppear();
-    
+
     /**
-     * Notifies the panel controller that its panel is about to be removed from a panel hierarchy.
-     * 
+     * Notifies the panel controller that its panel is about to be removed from
+     * a panel hierarchy.
+     *
      */
     public void panelWillDisappear();
-    
+
     /**
-     *  Notifies the panel controller that its panel was removed from a panel hierarchy.
+     * Notifies the panel controller that its panel was removed from a panel
+     * hierarchy.
      */
     public void panelDidDisappear();
-    
+
     /**
      * Get logger assosieted to panel controller.
+     *
      * @return Logger
      */
     public Logger getLogger();
-    
+
     /**
      * Set lockNavigation to true.
      */
     public void lockNavigation();
-    
+
     /**
-     *  Set lockNavigation to false.
+     * Set lockNavigation to false.
      */
     public void unlockNavigation();
+
+    public void setCoordinator(IAppCoordinator coordinator);
+
+    public void setParcel(String id,Parcel parcel);
 }
