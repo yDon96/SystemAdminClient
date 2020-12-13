@@ -6,11 +6,14 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
+import CAAYcyclic.SystemAdiminClient.api.model.LocalDateDeserializer;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.api.model.ServerSettings;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.time.LocalDate;
+import CAAYcyclic.SystemAdiminClient.api.model.LocalDateSerializer;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -45,7 +48,11 @@ public class ApiManager {
      
     public ApiManager() {
         LOG.log(java.util.logging.Level.CONFIG, "Init ApiManager");
-        Gson gson = new GsonBuilder().setLenient().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
+                .setLenient()
+                .create();
 
         OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(seconds,TimeUnit.SECONDS)
