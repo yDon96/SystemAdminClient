@@ -5,8 +5,6 @@
  */
 package CAAYcyclic.SystemAdiminClient.model;
 
-import CAAYcyclic.SystemAdiminClient.model.Parcel;
-import CAAYcyclic.SystemAdiminClient.model.Parcelable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
