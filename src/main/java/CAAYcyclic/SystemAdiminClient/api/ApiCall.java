@@ -6,6 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -36,4 +37,6 @@ public interface ApiCall {
     @POST("/user")
     public Call<ResponseBody> postUser(@Body User user);
     
+    @GET("/roles")
+    public Call<List<Role>> getAllRole();
 }

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
 import CAAYcyclic.SystemAdiminClient.api.model.LocalDateSerializer;
+import CAAYcyclic.SystemAdiminClient.model.Role;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -111,6 +112,13 @@ public class ApiManager {
         this.apiDelegate = apiDelegate;
         Call<List<Procedure>> call = apiCall.getAllProcedure();
         call.enqueue(getProceduresCallback);
+    }
+    
+    public void getRoles(ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Get all procedure.");
+        this.apiDelegate = apiDelegate;
+        Call<List<Role>> call = apiCall.getAllRole();
+        call.enqueue(getRolesCallback);
     }
     
     private Callback<ResponseBody> postCallback = new Callback<ResponseBody>(){
@@ -222,6 +230,29 @@ public class ApiManager {
         @Override
         public void onFailure(Call<List<Procedure>> call, Throwable t){
             LOG.log(java.util.logging.Level.SEVERE, "Get procedures response is not successful, message: {0}.", t.getMessage());
+            apiDelegate.onFailure(t.getMessage());
+        };
+    };
+    
+    private Callback<List<Role>> getRolesCallback = new Callback<List<Role>>(){
+        @Override
+        public void onResponse(Call<List<Role>> call, Response<List<Role>> response){
+            if (response.isSuccessful()) {
+                LOG.log(java.util.logging.Level.CONFIG, "Get roles response is successful.");
+                List<Role> roles = response.body();
+                LOG.log(java.util.logging.Level.CONFIG, "Get {0} roles.", String.valueOf(roles.size()));
+                if(roles != null){
+                    apiDelegate.onGetAllSuccess(roles);
+                }
+            } else {
+                LOG.log(java.util.logging.Level.SEVERE, "Get roles response is not successful.");
+                apiDelegate.onFailure("Could not get roles.");
+            }
+        };
+
+        @Override
+        public void onFailure(Call<List<Role>> call, Throwable t){
+            LOG.log(java.util.logging.Level.SEVERE, "Get roles response is not successful, message: {0}.", t.getMessage());
             apiDelegate.onFailure(t.getMessage());
         };
     };
