@@ -55,6 +55,7 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(242, 241, 241));
         setForeground(new java.awt.Color(153, 153, 153));
+        setMinimumSize(new java.awt.Dimension(879, 666));
 
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         titleLabel.setForeground(ApplicationColor.primaryColor.value);
