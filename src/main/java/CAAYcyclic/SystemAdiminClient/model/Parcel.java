@@ -6,6 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -13,40 +14,99 @@ import java.util.ArrayList;
  */
 public class Parcel {
     
-    private ArrayList<String> stringList;
-    private ArrayList<Integer> integerList;
-    private ArrayList<String[]> stringArrayList;
+    protected ArrayList<String> stringList;
+    protected ArrayList<Integer> integerList;
+    protected ArrayList<String[]> stringArrayList;
+    protected ArrayList<Parcel> parcelList;
     
     public void writeString(String string){
         if(stringList == null){
-            stringList = new ArrayList<String>();
+            stringList = new ArrayList<>();
         }
         stringList.add(string);
     }
     
     public void writeInteger(Integer integer){
         if(integerList == null){
-            integerList = new ArrayList<Integer>();
+            integerList = new ArrayList<>();
         }
         integerList.add(integer);
     }
     
     public void writeStringArray(String[] integer){
         if(stringArrayList == null){
-            stringArrayList = new ArrayList<String[]>();
+            stringArrayList = new ArrayList<>();
         }
         stringArrayList.add(integer);
     }
     
+    public void writeParcel(Parcel parcel){
+        if(parcelList == null){
+            parcelList = new ArrayList<>();
+        }
+        parcelList.add(parcel);
+    }
+    
     public String readString(){
-        return stringList.remove(0);
+        return getValueFromArrayList(stringList);
     }
     
     public Integer readInteger(){
-        return integerList.remove(0);
+        return getValueFromArrayList(integerList);
     }
     
     public String[] readStringArray(){
-        return stringArrayList.remove(0);
+        return getValueFromArrayList(stringArrayList);
     }
+    
+    public Parcel readParcel(){
+        return getValueFromArrayList(parcelList);
+    }
+    
+    private <T> T getValueFromArrayList(ArrayList<T> arrayList){
+        if(arrayList != null && arrayList.size() > 0){
+            return arrayList.remove(0);
+        }
+        
+        return null;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.stringList);
+        hash = 89 * hash + Objects.hashCode(this.integerList);
+        hash = 89 * hash + Objects.hashCode(this.stringArrayList);
+        hash = 89 * hash + Objects.hashCode(this.parcelList);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Parcel other = (Parcel) obj;
+        if (!Objects.equals(this.stringList, other.stringList)) {
+            return false;
+        }
+        if (!Objects.equals(this.integerList, other.integerList)) {
+            return false;
+        }
+        if (!Objects.equals(this.stringArrayList, other.stringArrayList)) {
+            return false;
+        }
+        if (!Objects.equals(this.parcelList, other.parcelList)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
