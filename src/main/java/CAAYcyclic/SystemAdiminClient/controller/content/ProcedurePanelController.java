@@ -158,18 +158,6 @@ public class ProcedurePanelController extends ContentPanelController {
         updateBtn.setText("Update");
     }
 
-    private void showSelectionError(String message) {
-        showError("Error", message);
-    }
-
-    private void showError(String title, String message) {
-        AlertDialogBuilder alertBuilder = new AlertDialogBuilder();
-        alertBuilder.setTitle(title);
-        alertBuilder.setMessage(message);
-        alertBuilder.setDefaultPositiveAction();
-        getCoordinator().showAlert(alertBuilder);
-    }
-
     @Override
     public Logger getLogger() {
         return LOG;
