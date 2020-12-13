@@ -49,14 +49,14 @@ public final class DataPanel extends javax.swing.JPanel {
         titleLabel = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         roundedPanel1 = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableView = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         numberRowLabel = new javax.swing.JLabel();
         numberOfRow = new javax.swing.JLabel();
         updateBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         addBtn = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableView = new CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,30 +81,6 @@ public final class DataPanel extends javax.swing.JPanel {
 
         roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundedPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        tableView.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        tableView.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tableView.setRowHeight(25);
-        tableView.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableView.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableView.setShowGrid(false);
-        jScrollPane2.setViewportView(tableView);
-        if (tableView.getColumnModel().getColumnCount() > 0) {
-            tableView.getColumnModel().getColumn(0).setResizable(false);
-            tableView.getColumnModel().getColumn(1).setResizable(false);
-            tableView.getColumnModel().getColumn(2).setResizable(false);
-            tableView.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -151,6 +127,23 @@ public final class DataPanel extends javax.swing.JPanel {
         addBtn.setBackground(ApplicationColor.accentColor.value);
         addBtn.setText("Add");
 
+        tableView.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableView.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        tableView.setMinimumSize(new java.awt.Dimension(300, 100));
+        tableView.setPreferredSize(new java.awt.Dimension(300, 100));
+        tableView.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(tableView);
+
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
@@ -160,7 +153,7 @@ public final class DataPanel extends javax.swing.JPanel {
                 .addComponent(numberOfRow)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(numberRowLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE)
                 .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,8 +166,8 @@ public final class DataPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addComponent(jScrollPane3)
+                .addGap(24, 24, 24))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +181,9 @@ public final class DataPanel extends javax.swing.JPanel {
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -300,7 +293,7 @@ public final class DataPanel extends javax.swing.JPanel {
     private javax.swing.JButton editBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -308,7 +301,7 @@ public final class DataPanel extends javax.swing.JPanel {
     private javax.swing.JLabel numberOfRow;
     private javax.swing.JLabel numberRowLabel;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel roundedPanel1;
-    private javax.swing.JTable tableView;
+    private CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable tableView;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
