@@ -34,12 +34,15 @@ public interface ApiCall {
     @GET("/users")
     public Call<List<User>> getAllUser();
     
+    @PUT("/user/{id}/assign-role")
+    public Call<ResponseBody> putRoleToUser(@Path("id") Integer id,@Query("role") String role);
+    
     @POST("/user")
     public Call<ResponseBody> postUser(@Body User user);
     
     @GET("/roles")
-    public Call<List<Role>> getAllRole();
+    public Call<List<String>> getAllRole();
     
     @POST("/role")
-    public Call<ResponseBody> postRole(@Body String procedure);
+    public Call<ResponseBody> postRole(@Query("role") String role);
 }
