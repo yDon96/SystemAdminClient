@@ -8,7 +8,7 @@ import CAAYcyclic.SystemAdiminClient.enumeration.ApplicationColor;
 import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField;
 import CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomComboBox;
 import javax.swing.JLabel;
 
 
@@ -45,7 +45,7 @@ public class UserFormPanel extends javax.swing.JPanel {
         firstFild4 = new javax.swing.JLabel();
         dataChooser = new com.toedter.calendar.JDateChooser();
         jSeparator2 = new javax.swing.JSeparator();
-        roleCbx = new javax.swing.JComboBox<>();
+        roleCbx = new CustomComboBox<>();
         nameTxt = new CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField();
         surnameTxt = new CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField();
 
@@ -207,7 +207,7 @@ public class UserFormPanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField nameTxt;
-    private javax.swing.JComboBox<String> roleCbx;
+    private CustomComboBox<String> roleCbx;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel roundedPanel1;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton saveBtn;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField surnameTxt;
@@ -226,7 +226,7 @@ public class UserFormPanel extends javax.swing.JPanel {
         return nameTxt;
     }
 
-    public JComboBox<String> getRoleCbx() {
+    public CustomComboBox<String> getRoleCbx() {
         return roleCbx;
     }
 
@@ -237,5 +237,5 @@ public class UserFormPanel extends javax.swing.JPanel {
     public RoundedButton getSaveBtn() {
         return saveBtn;
     }
-    
+
 }
