@@ -95,7 +95,7 @@ public final class DataPanel extends javax.swing.JPanel {
         updateBtn.setBackground(new java.awt.Color(255, 255, 255));
         updateBtn.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         updateBtn.setForeground(ApplicationColor.primaryColor.value);
-        updateBtn.setText("Update");
+        updateBtn.setText("Refresh");
         updateBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         updateBtn.setOpaque(true);
         updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
