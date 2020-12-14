@@ -31,6 +31,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
         titleLabel = new javax.swing.JLabel();
         roundedPanel1 = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(242, 241, 241));
 
@@ -43,15 +44,23 @@ public class DashBoardPanel extends javax.swing.JPanel {
         roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
         roundedPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(jLabel1)
+                .addContainerGap(379, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -80,6 +89,7 @@ public class DashBoardPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel roundedPanel1;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables

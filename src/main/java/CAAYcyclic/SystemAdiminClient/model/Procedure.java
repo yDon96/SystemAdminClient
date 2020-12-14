@@ -18,6 +18,15 @@ public class Procedure implements Parcelable{
     String title;
     String description;
 
+    public Procedure(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public Procedure() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getId() {
         return id;
     }
