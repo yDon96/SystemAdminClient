@@ -6,7 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
@@ -136,7 +136,7 @@ public class ProcedureFormPanelController extends ContentPanelController {
         procedureForm.setSaveText();
     }
 
-    private ApiProcedureDelegate apiDelegate = new ApiProcedureDelegate() {
+    private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
         @Override
         public void onGetAllSuccess(List<Procedure> procedures) {
             endSavingProcedure();

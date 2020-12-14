@@ -6,7 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.controller.content.form.user;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
@@ -100,7 +100,7 @@ public class AddUserFormPanelController extends UserFormPanelController {
         return true;
     }
     
-    private ApiUserDelegate apiUserDelegate = new ApiUserDelegate() {
+    private ApiDelegate<User> apiUserDelegate = new ApiDelegate<User>() {
         @Override
         public void onGetAllSuccess(List<User> users) {
             

@@ -7,7 +7,6 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.UserDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.model.Role;
