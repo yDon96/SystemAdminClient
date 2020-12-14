@@ -22,7 +22,7 @@ public interface IAppCoordinator {
     
     void navigateToProcedureForm(Parcelable procedure);
     
-    void navigateToUserForm(Parcelable user);
+    void navigateToUserForm(Parcelable user, Parcelable rolesList);
     
     void popBack();
     

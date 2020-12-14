@@ -8,6 +8,7 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
+import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.UserFormPanel;
@@ -35,7 +36,8 @@ public class UserFormPanelController extends ContentPanelController {
     private JButton saveBtn;
     private User user;
     private JComboBox<String> rolesCbx;
-    private List<Role> roles;
+    private MyArrayList<Role> roles;
+    
     private static final Logger LOG = Logger.getLogger(UserFormPanelController.class.getName());
 
     public UserFormPanelController() {
@@ -47,22 +49,34 @@ public class UserFormPanelController extends ContentPanelController {
     @Override
     public void panelWillAppear() {
         super.panelWillAppear(); 
-        ApiManager.getIstance().getRoles(apiRoleDelegate);
     }
-    
-    
 
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
         initAction();
+        user = new User();
+        roles = new MyArrayList<>();
         if(getParcels() != null){
-            user = new User();
-            user.createFromParcel(getParcels().get(user.getParcelableDescription()));
-            nameTxt.setText(user.getName());
-            surnameTxt.setText(user.getSurname());
-            dataChooser.setDate(java.sql.Date.valueOf(user.getDob()));
+            if(getParcels().containsKey(roles.getParcelableDescription())){
+                roles.createFromParcel(getParcels().get(roles.getParcelableDescription()),Role.class);
+                for (Role role: roles){
+                    rolesCbx.addItem(role.getName());
+                }
+            }
             
+            if(getParcels().containsKey(user.getParcelableDescription())){
+                user.createFromParcel(getParcels().get(user.getParcelableDescription()));
+                nameTxt.setText(user.getName());
+                surnameTxt.setText(user.getSurname());
+                dataChooser.setDate(java.sql.Date.valueOf(user.getDob()));
+                rolesCbx.setSelectedItem(user.getRole());
+                            
+                nameTxt.setEditable(false);
+                surnameTxt.setEditable(false);
+                dataChooser.setEnabled(false);  
+            }
+
         }
     }
 
@@ -132,34 +146,9 @@ public class UserFormPanelController extends ContentPanelController {
 
         @Override
         public void onCreateSuccess() {
+            getCoordinator().popBack();
         }
     };
-    
-    private ApiRoleDelegate apiRoleDelegate = new ApiRoleDelegate() {
-        @Override
-        public void onGetAllSuccess(List<Role> roles) {
-            setRoles(roles);
-            roles.forEach(role -> rolesCbx.addItem(role.getName()));
-            rolesCbx.setSelectedItem(user.getRole());
-        }
-
-        @Override
-        public void onGetSuccess(Role role) {
-        }
-
-        @Override
-        public void onFailure(String message) {
-            showSelectionError(message);
-        }
-
-        @Override
-        public void onCreateSuccess() {
-        }
-    };
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
     
     @Override
     public Logger getLogger() {

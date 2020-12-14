@@ -6,9 +6,12 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.UserDataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
+import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
@@ -36,6 +39,8 @@ public class UserPanelController extends ContentPanelController {
     private JLabel numberOfRow;
     private JTable table;
     private List<User> userList;
+    private MyArrayList<Role> roles;
+
 
     public UserPanelController() {
         super();
@@ -46,6 +51,21 @@ public class UserPanelController extends ContentPanelController {
         initComponent();
         setButtonAction();
     }
+
+    @Override
+    public void panelWillAppear() {
+        super.panelWillAppear();
+        Thread newThread = new Thread(() -> {
+            ApiManager.getIstance().getUsers(apiDelegate);
+        });
+        newThread.start();
+        Thread newThread2 = new Thread(() -> {
+            ApiManager.getIstance().getRoles(apiRoleDelegate);
+        });
+        newThread2.start();
+    }
+    
+    
 
     @Override
     public void panelDidAppear() {
@@ -86,7 +106,7 @@ public class UserPanelController extends ContentPanelController {
                 return;
             } else {
                 editBtn.setSelected(false);
-                getCoordinator().navigateToUserForm(userList.get(table.getSelectedRow()));
+                getCoordinator().navigateToUserForm(userList.get(table.getSelectedRow()),roles);
             }
         }
     };
@@ -95,7 +115,27 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            getCoordinator().navigateToUserForm(null);
+            getCoordinator().navigateToUserForm(null,roles);
+        }
+    };
+    
+    private ApiRoleDelegate apiRoleDelegate = new ApiRoleDelegate() {
+        @Override
+        public void onGetAllSuccess(List<Role> roles) {
+            setRoles(roles);
+        }
+
+        @Override
+        public void onGetSuccess(Role role) {
+        }
+
+        @Override
+        public void onFailure(String message) {
+            showSelectionError(message);
+        }
+
+        @Override
+        public void onCreateSuccess() {
         }
     };
 
@@ -128,10 +168,14 @@ public class UserPanelController extends ContentPanelController {
 
         @Override
         public void onCreateSuccess() {
-            getCoordinator().popBack();
         }
     };
 
+    
+    public void setRoles(List<Role> roles) {
+        this.roles = new MyArrayList<Role>(roles);
+    }
+    
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }

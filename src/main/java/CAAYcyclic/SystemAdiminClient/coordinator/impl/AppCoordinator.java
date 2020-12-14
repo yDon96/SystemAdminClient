@@ -69,12 +69,15 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
     }
 
     @Override
-    public void navigateToUserForm(Parcelable user) {
+    public void navigateToUserForm(Parcelable user, Parcelable rolesList) {
         IContainerViewAbstractFactory userFormContainerViewFactory = new UserFormContainerViewFactory();
         IPanelController panelController = userFormContainerViewFactory.getContentPanelController();
         IPanelController barController = userFormContainerViewFactory.getBarController();
         if(user != null){
             panelController.setParcel(user.getParcelableDescription(), user.convertToParcel());
+        }
+        if(rolesList != null){
+            panelController.setParcel(rolesList.getParcelableDescription(), rolesList.convertToParcel());
         }
         panelController.setCoordinator(this);
         barController.setCoordinator(this);

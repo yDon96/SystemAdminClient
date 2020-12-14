@@ -9,7 +9,7 @@ package CAAYcyclic.SystemAdiminClient.model;
  *
  * @author Youssef
  */
-public class Role {
+public class Role implements Parcelable{
     
     Integer id;
     String name;
@@ -28,6 +28,25 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getParcelableDescription() {
+        return "role";
+    }
+
+    @Override
+    public Parcel convertToParcel() {
+        Parcel parcel = new Parcel();
+        parcel.writeInteger(id);
+        parcel.writeString(name);
+        return parcel;
+    }
+
+    @Override
+    public void createFromParcel(Parcel parcel) {
+        this.id = parcel.readInteger();
+        this.name = parcel.readString();
     }
     
     
