@@ -11,7 +11,8 @@ package CAAYcyclic.SystemAdiminClient.enumeration;
  */
 public enum DataPanelTitle {
     USER("User"),
-    PROCEDURE("Procedure");
+    PROCEDURE("Procedure"),
+    ROLE("Role");
 
     public final String value;
 

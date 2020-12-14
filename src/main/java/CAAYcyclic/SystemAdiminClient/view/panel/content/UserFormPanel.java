@@ -5,6 +5,11 @@
  */
 package CAAYcyclic.SystemAdiminClient.view.panel.content;
 import CAAYcyclic.SystemAdiminClient.enumeration.ApplicationColor;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton;
+import com.toedter.calendar.JDateChooser;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomComboBox;
+import javax.swing.JLabel;
 
 
 /**
@@ -32,22 +37,23 @@ public class UserFormPanel extends javax.swing.JPanel {
         titleLabel = new javax.swing.JLabel();
         roundedPanel1 = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        roundedButton1 = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton();
-        titleTxt = new javax.swing.JTextField();
+        saveBtn = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton();
         firstFild = new javax.swing.JLabel();
         firstFild1 = new javax.swing.JLabel();
-        titleTxt3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        formDescription = new javax.swing.JLabel();
         firstFild2 = new javax.swing.JLabel();
         firstFild4 = new javax.swing.JLabel();
-        titleTxt1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dataChooser = new com.toedter.calendar.JDateChooser();
         jSeparator2 = new javax.swing.JSeparator();
+        roleCbx = new CustomComboBox<>();
+        nameTxt = new CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField();
+        surnameTxt = new CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField();
 
         setBackground(new java.awt.Color(242, 241, 241));
         setMinimumSize(new java.awt.Dimension(879, 666));
 
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        titleLabel.setForeground(ApplicationColor.primaryColor.value);
         titleLabel.setText("User");
         titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         titleLabel.setMaximumSize(new java.awt.Dimension(200, 46));
@@ -57,116 +63,110 @@ public class UserFormPanel extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
-        roundedButton1.setBackground(ApplicationColor.accentColor.value);
-        roundedButton1.setText("roundedButton1");
-
-        titleTxt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        titleTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titleTxtActionPerformed(evt);
-            }
-        });
+        saveBtn.setBackground(ApplicationColor.accentColor.value);
+        saveBtn.setText("Save");
 
         firstFild.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        firstFild.setForeground(ApplicationColor.primaryColor.value);
         firstFild.setText("Name");
 
         firstFild1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        firstFild1.setForeground(ApplicationColor.primaryColor.value);
         firstFild1.setText("Surname");
 
-        titleTxt3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        titleTxt3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titleTxt3ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("jLabel1");
+        formDescription.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        formDescription.setForeground(new java.awt.Color(153, 153, 153));
+        formDescription.setText("jLabel1");
 
         firstFild2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        firstFild2.setForeground(ApplicationColor.primaryColor.value);
         firstFild2.setText("Date of Birth");
 
         firstFild4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        firstFild4.setForeground(ApplicationColor.primaryColor.value);
         firstFild4.setText("Role");
 
-        titleTxt1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        titleTxt1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titleTxt1ActionPerformed(evt);
-            }
-        });
-
-        jDateChooser1.setBackground(new java.awt.Color(255, 255, 255));
+        dataChooser.setBackground(new java.awt.Color(255, 255, 255));
+        dataChooser.setDateFormatString("dd/MM/yyyy");
+        dataChooser.setMinimumSize(new java.awt.Dimension(39, 28));
+        dataChooser.setPreferredSize(new java.awt.Dimension(95, 28));
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setMinimumSize(new java.awt.Dimension(879, 666));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(879, 666));
+
+        roleCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
+        roleCbx.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        roleCbx.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        surnameTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                surnameTxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(roundedButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator2)
-                .addContainerGap())
-            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addComponent(firstFild1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(37, 37, 37))
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(titleTxt)
-                                    .addComponent(firstFild, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                                    .addComponent(titleTxt3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                                    .addComponent(titleTxt1)
-                                    .addComponent(firstFild4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(firstFild2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(24, 24, 24))))
+                        .addComponent(formDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 828, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(roundedPanel1Layout.createSequentialGroup()
+                            .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(firstFild1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                                .addComponent(surnameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(firstFild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(151, 151, 151)
+                            .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(firstFild2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dataChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(firstFild4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(roleCbx, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel1)
+                .addComponent(formDescription)
                 .addGap(20, 20, 20)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
+                        .addComponent(firstFild2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dataChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(firstFild)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(titleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addComponent(firstFild2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstFild1)
-                    .addComponent(firstFild4))
-                .addGap(18, 18, 18)
+                    .addComponent(firstFild4)
+                    .addComponent(firstFild1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89)
+                    .addComponent(roleCbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(surnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(roundedButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 
@@ -177,7 +177,7 @@ public class UserFormPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 867, Short.MAX_VALUE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -187,38 +187,55 @@ public class UserFormPanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void titleTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTxtActionPerformed
+    private void surnameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_surnameTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_titleTxtActionPerformed
-
-    private void titleTxt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTxt1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titleTxt1ActionPerformed
-
-    private void titleTxt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTxt3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titleTxt3ActionPerformed
+    }//GEN-LAST:event_surnameTxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser dataChooser;
     private javax.swing.JLabel firstFild;
     private javax.swing.JLabel firstFild1;
     private javax.swing.JLabel firstFild2;
     private javax.swing.JLabel firstFild4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel formDescription;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton roundedButton1;
+    private CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField nameTxt;
+    private CustomComboBox<String> roleCbx;
     private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedPanel roundedPanel1;
+    private CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton saveBtn;
+    private CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTextField surnameTxt;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField titleTxt;
-    private javax.swing.JTextField titleTxt1;
-    private javax.swing.JTextField titleTxt3;
     // End of variables declaration//GEN-END:variables
+
+    public JDateChooser getDataChooser() {
+        return dataChooser;
+    }
+
+    public JLabel getFormDescription() {
+        return formDescription;
+    }
+
+    public CustomJTextField getNameTxt() {
+        return nameTxt;
+    }
+
+    public CustomComboBox<String> getRoleCbx() {
+        return roleCbx;
+    }
+
+    public CustomJTextField getSurnameTxt() {
+        return surnameTxt;
+    }
+
+    public RoundedButton getSaveBtn() {
+        return saveBtn;
+    }
+
 }

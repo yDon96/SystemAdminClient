@@ -20,9 +20,13 @@ public interface IAppCoordinator {
     
     void switchPanelToUserPanel();
     
+    void switchPanelToRolePanel();
+    
     void navigateToProcedureForm(Parcelable procedure);
     
-    void navigateToUserForm();
+    void navigateToUserForm(Parcelable user, Parcelable rolesList);
+    
+    void navigateToRoleForm();
     
     void popBack();
     

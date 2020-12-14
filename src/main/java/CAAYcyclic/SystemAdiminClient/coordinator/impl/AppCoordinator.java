@@ -9,12 +9,15 @@ import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.IAlertBuilder;
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ProcedurePanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.RolePanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.UserPanelController;
 import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
+import CAAYcyclic.SystemAdiminClient.factory.container.AddUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
-import CAAYcyclic.SystemAdiminClient.factory.container.UserFormContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.RoleFormContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.EditUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.model.Parcelable;
 
@@ -67,12 +70,33 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         userPanelController.setCoordinator(this);
         navigationController.performPanelNavigationTo(userPanelController);
     }
+    
+        @Override
+    public void switchPanelToRolePanel() {
+        IPanelController rolePanelController = navigationController.retrivePanelFromMap(RolePanelController.class.getName());
+        if(rolePanelController == null) {
+            rolePanelController = new RolePanelController();
+        }
+        rolePanelController.setCoordinator(this);
+        navigationController.performPanelNavigationTo(rolePanelController);
+    }
 
     @Override
-    public void navigateToUserForm() {
-        IContainerViewAbstractFactory homeContainerViewFactory = new UserFormContainerViewFactory();
-        IPanelController panelController = homeContainerViewFactory.getContentPanelController();
-        IPanelController barController = homeContainerViewFactory.getBarController();
+    public void navigateToUserForm(Parcelable user, Parcelable rolesList) {
+        IContainerViewAbstractFactory userFormContainerViewFactory;
+        if(user != null){
+            userFormContainerViewFactory = new EditUserFormContainerViewFactory();
+        } else {
+            userFormContainerViewFactory = new AddUserFormContainerViewFactory(); 
+        }
+        IPanelController panelController = userFormContainerViewFactory.getContentPanelController();
+        IPanelController barController = userFormContainerViewFactory.getBarController();
+        if(user != null){
+            panelController.setParcel(user.getParcelableDescription(), user.convertToParcel());
+        }
+        if(rolesList != null){
+            panelController.setParcel(rolesList.getParcelableDescription(), rolesList.convertToParcel());
+        }
         panelController.setCoordinator(this);
         barController.setCoordinator(this);
         navigationController.performViewNavigationTo(barController,panelController);
@@ -97,6 +121,16 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         if(procedure != null){
             panelController.setParcel(procedure.getParcelableDescription(), procedure.convertToParcel());
         }
+        panelController.setCoordinator(this);
+        barController.setCoordinator(this);
+        navigationController.performViewNavigationTo(barController,panelController);
+    }
+
+    @Override
+    public void navigateToRoleForm() {
+        IContainerViewAbstractFactory roleAbstractFactory = new RoleFormContainerViewFactory();
+        IPanelController panelController = roleAbstractFactory.getContentPanelController();
+        IPanelController barController = roleAbstractFactory.getBarController();
         panelController.setCoordinator(this);
         barController.setCoordinator(this);
         navigationController.performViewNavigationTo(barController,panelController);

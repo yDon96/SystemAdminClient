@@ -5,6 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
+import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.controller.PanelController;
 import javax.swing.JPanel;
 
@@ -35,6 +36,17 @@ public abstract class ContentPanelController extends PanelController implements 
         setPanel(panel);
     }
     
+    protected void showSelectionError(String message) {
+        showError("Error", message);
+    }
+
+    protected void showError(String title, String message) {
+        AlertDialogBuilder alertBuilder = new AlertDialogBuilder();
+        alertBuilder.setTitle(title);
+        alertBuilder.setMessage(message);
+        alertBuilder.setDefaultPositiveAction();
+        getCoordinator().showAlert(alertBuilder);
+    }
     
     
 

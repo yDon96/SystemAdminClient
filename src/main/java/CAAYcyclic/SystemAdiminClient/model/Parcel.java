@@ -63,6 +63,10 @@ public class Parcel {
         return getValueFromArrayList(parcelList);
     }
     
+    public ArrayList<Parcel> readParcels(){
+        return parcelList;
+    }
+    
     private <T> T getValueFromArrayList(ArrayList<T> arrayList){
         if(arrayList != null && arrayList.size() > 0){
             return arrayList.remove(0);

@@ -6,6 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -18,8 +19,8 @@ import retrofit2.http.*;
  */
 public interface ApiCall {
     
-    @GET("/procedure")
-    public Call<Procedure> getProcedure(@Query("id") String id);
+    @GET("/procedure/{id}")
+    public Call<Procedure> getProcedure(@Path("id") String id);
     
     @GET("/procedures")
     public Call<List<Procedure>> getAllProcedure();
@@ -27,13 +28,21 @@ public interface ApiCall {
     @POST("/procedure")
     public Call<ResponseBody> postProcedure(@Body Procedure procedure);
     
-    @GET("/user")
-    public Call<User> getUser(@Query("id") String id);
+    @GET("/user/{id}")
+    public Call<User> getUser(@Path("id") String id);
     
     @GET("/users")
     public Call<List<User>> getAllUser();
     
+    @PUT("/user/{id}/assign-role")
+    public Call<ResponseBody> putRoleToUser(@Path("id") Integer id,@Query("role") String role);
+    
     @POST("/user")
     public Call<ResponseBody> postUser(@Body User user);
     
+    @GET("/roles")
+    public Call<List<String>> getAllRole();
+    
+    @POST("/role")
+    public Call<ResponseBody> postRole(@Query("role") String role);
 }
