@@ -3,7 +3,7 @@ package CAAYcyclic.SystemAdiminClient.factory.container;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.RoleFormPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.form.role.RoleFormPanelController;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

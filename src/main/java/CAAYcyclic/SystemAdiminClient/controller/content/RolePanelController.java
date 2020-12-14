@@ -50,6 +50,7 @@ public class RolePanelController extends ContentPanelController{
         super.panelWillAppear(); 
         initComponent();
         setButtonAction();
+        getRoleList();
     }
     
     private void initComponent() {
@@ -70,7 +71,7 @@ public class RolePanelController extends ContentPanelController{
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            ApiManager.getIstance().getRoles(roleDelegate);
+            getRoleList();
         }
     };
     
@@ -81,6 +82,13 @@ public class RolePanelController extends ContentPanelController{
             getCoordinator().navigateToRoleForm();
         }
     };
+    
+    private void getRoleList(){
+        Thread newThread = new Thread(() -> {
+            ApiManager.getIstance().getRoles(roleDelegate);
+        });
+        newThread.start();
+    }
     
     private ApiDelegate<Role> roleDelegate = new ApiDelegate<Role>() {
         @Override
