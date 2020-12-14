@@ -5,16 +5,17 @@
  */
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
-import CAAYcyclic.SystemAdiminClient.controller.content.UserFormPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.form.user.AddUserFormPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.form.user.EditUserFormPanelController;
 
 /**
  *
  * @author Youssef
  */
-public class UserFormContainerViewFactory implements IContainerViewAbstractFactory{
+public class EditUserFormContainerViewFactory implements IContainerViewAbstractFactory{
 
     @Override
     public BarController getBarController() {
@@ -23,7 +24,7 @@ public class UserFormContainerViewFactory implements IContainerViewAbstractFacto
 
     @Override
     public ContentPanelController getContentPanelController() {
-        return new UserFormPanelController();
+        return new EditUserFormPanelController();
     }
     
 }

@@ -12,11 +12,12 @@ import CAAYcyclic.SystemAdiminClient.controller.content.ProcedurePanelController
 import CAAYcyclic.SystemAdiminClient.controller.content.RolePanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.UserPanelController;
 import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
+import CAAYcyclic.SystemAdiminClient.factory.container.AddUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.RoleFormContainerViewFactory;
-import CAAYcyclic.SystemAdiminClient.factory.container.UserFormContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.EditUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.model.Parcelable;
 
@@ -82,7 +83,12 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
 
     @Override
     public void navigateToUserForm(Parcelable user, Parcelable rolesList) {
-        IContainerViewAbstractFactory userFormContainerViewFactory = new UserFormContainerViewFactory();
+        IContainerViewAbstractFactory userFormContainerViewFactory;
+        if(user != null){
+            userFormContainerViewFactory = new EditUserFormContainerViewFactory();
+        } else {
+            userFormContainerViewFactory = new AddUserFormContainerViewFactory(); 
+        }
         IPanelController panelController = userFormContainerViewFactory.getContentPanelController();
         IPanelController barController = userFormContainerViewFactory.getBarController();
         if(user != null){
