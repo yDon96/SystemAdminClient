@@ -103,6 +103,11 @@ public class EditUserFormPanelController extends UserFormPanelController {
             return;
         }
         
+        if(rolesCbx.getSelectedRowValue() == null){
+            showSelectionError("Please select a valid role.");
+            return;
+        }
+        
         if(rolesCbx.isOriginalSelection()){
             getCoordinator().popBack();
             return;
