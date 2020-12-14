@@ -8,7 +8,7 @@ package CAAYcyclic.SystemAdiminClient.controller.content;
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
-import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.UserDataPanelBuilder;
+import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
@@ -44,10 +44,10 @@ public class UserPanelController extends ContentPanelController {
 
     public UserPanelController() {
         super();
-        UserDataPanelBuilder userDataPanelBuilder = new UserDataPanelBuilder();
+        DataPanelBuilder DataPanelBuilder = new DataPanelBuilder();
         Director director = new Director();
-        director.constructUserDataPanel(userDataPanelBuilder);
-        setContentPanel(userDataPanelBuilder.getResults());
+        director.constructUserDataPanel(DataPanelBuilder);
+        setContentPanel(DataPanelBuilder.getResults());
         initComponent();
         setButtonAction();
     }

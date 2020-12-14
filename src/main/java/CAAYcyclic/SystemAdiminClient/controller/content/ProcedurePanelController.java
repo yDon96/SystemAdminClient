@@ -9,7 +9,7 @@ import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
-import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.ProcedureDataPanelBuilder;
+import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
@@ -39,7 +39,7 @@ public class ProcedurePanelController extends ContentPanelController {
 
     public ProcedurePanelController() {
         super();
-        ProcedureDataPanelBuilder dataPanelBuilder = new ProcedureDataPanelBuilder();
+        DataPanelBuilder dataPanelBuilder = new DataPanelBuilder();
         Director director = new Director();
         director.constructProcedureDataPanel(dataPanelBuilder);
         setContentPanel(dataPanelBuilder.getResults());
