@@ -11,7 +11,8 @@ package CAAYcyclic.SystemAdiminClient.enumeration;
  */
 public enum TableViewHeaders {
     PROCEDURE( new String[] {"Id", "Title", "Description"}),
-    USER( new String[] {"Id", "Name", "Surname", "Date of Birth"});
+    USER( new String[] {"Id", "Name", "Surname", "Date of Birth"}),
+    ROLE( new String[] {"Id", "Name"});
 
     public final String[] value;
 

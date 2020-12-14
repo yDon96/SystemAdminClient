@@ -9,6 +9,7 @@ import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.IAlertBuilder;
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ProcedurePanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.RolePanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.UserPanelController;
 import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
@@ -67,6 +68,16 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         userPanelController.setCoordinator(this);
         navigationController.performPanelNavigationTo(userPanelController);
     }
+    
+        @Override
+    public void switchPanelToRolePanel() {
+        IPanelController rolePanelController = navigationController.retrivePanelFromMap(RolePanelController.class.getName());
+        if(rolePanelController == null) {
+            rolePanelController = new RolePanelController();
+        }
+        rolePanelController.setCoordinator(this);
+        navigationController.performPanelNavigationTo(rolePanelController);
+    }
 
     @Override
     public void navigateToUserForm(Parcelable user) {
@@ -103,6 +114,9 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         panelController.setCoordinator(this);
         barController.setCoordinator(this);
         navigationController.performViewNavigationTo(barController,panelController);
+    }
+    @Override
+    public void navigateToRoleForm() {
     }
     
     

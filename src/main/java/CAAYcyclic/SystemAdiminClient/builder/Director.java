@@ -34,4 +34,12 @@ public class Director {
         builder.setTitle(DataPanelTitle.PROCEDURE.value);
         builder.setTableHeader(TableViewHeaders.PROCEDURE.value);
     }
+    
+     /**
+     *
+     */
+    public void constructRoleDataPanel(IDataPanelBuilder builder) {
+        builder.setTitle(DataPanelTitle.ROLE.value);
+        builder.setTableHeader(TableViewHeaders.ROLE.value);
+    }
 }
