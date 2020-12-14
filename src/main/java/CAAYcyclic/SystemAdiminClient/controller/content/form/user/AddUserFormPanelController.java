@@ -3,93 +3,64 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.form.user;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
-import CAAYcyclic.SystemAdiminClient.view.panel.content.UserFormPanel;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 /**
  *
  * @author Youssef
  */
-public class UserFormPanelController extends ContentPanelController {
-
-    private UserFormPanel userForm;
-    private JDateChooser dataChooser;
-    private JTextField nameTxt;
-    private JTextField surnameTxt;
-    private JButton saveBtn;
-    private User user;
-    private JComboBox<String> rolesCbx;
-    private MyArrayList<Role> roles;
+public class AddUserFormPanelController extends UserFormPanelController {
     
-    private static final Logger LOG = Logger.getLogger(UserFormPanelController.class.getName());
+    private static final Logger LOG = Logger.getLogger(AddUserFormPanelController.class.getName());
 
-    public UserFormPanelController() {
+    public AddUserFormPanelController() {
         super();
-        setContentPanel(UserFormPanel.class);
-        initComponent();
     }
 
     @Override
     public void panelWillAppear() {
-        super.panelWillAppear(); 
+        super.panelWillAppear();
+        userForm.getFormDescription().setText("Create new user");
     }
 
     @Override
     public void panelDidAppear() {
         super.panelDidAppear();
-        initAction();
-        user = new User();
+        getRolesList();
+        setDefaultRoleSelectionValue();
+    }
+    
+    private void setDefaultRoleSelectionValue(){
+        rolesCbx.setSelectedIndex(0);
+    };
+    
+    
+    private void getRolesList() {
         roles = new MyArrayList<>();
-        if(getParcels() != null){
-            if(getParcels().containsKey(roles.getParcelableDescription())){
-                roles.createFromParcel(getParcels().get(roles.getParcelableDescription()),Role.class);
-                for (Role role: roles){
-                    rolesCbx.addItem(role.getName());
-                }
+        if(getParcels().containsKey(roles.getParcelableDescription())){
+            roles.createFromParcel(getParcels().get(roles.getParcelableDescription()),Role.class);
+            for (Role role: roles){
+                rolesCbx.addItem(role.getName());
             }
-            
-            if(getParcels().containsKey(user.getParcelableDescription())){
-                user.createFromParcel(getParcels().get(user.getParcelableDescription()));
-                nameTxt.setText(user.getName());
-                surnameTxt.setText(user.getSurname());
-                dataChooser.setDate(java.sql.Date.valueOf(user.getDob()));
-                rolesCbx.setSelectedItem(user.getRole());
-                            
-                nameTxt.setEditable(false);
-                surnameTxt.setEditable(false);
-                dataChooser.setEnabled(false);  
-            }
-
+        } else {
+            LOG.log(java.util.logging.Level.SEVERE, "Parcel do not contains any roles.");
+            showSelectionError("An error occured during role's value retrive.");
+            getCoordinator().popBack();
         }
     }
 
-    private void initComponent() {
-        this.userForm = (UserFormPanel) getPanel();
-        nameTxt = userForm.getNameTxt();
-        surnameTxt = userForm.getSurnameTxt();
-        dataChooser = userForm.getDataChooser();
-        saveBtn = userForm.getSaveBtn();
-        rolesCbx = userForm.getRoleCbx();
-    }
-    
-    private void initAction(){
+    @Override
+    protected void initAction(){
         saveBtn.addMouseListener(saveBtnAction);
     }
     
@@ -106,7 +77,7 @@ public class UserFormPanelController extends ContentPanelController {
             showSelectionError("One or more field need to be filled.");
             return;
         }
-        User user = new User(nameTxt.getText().trim(),surnameTxt.getText().trim(),convertStringToDate(dataChooser.getDate()));
+        User user = new User(nameTxt.getText().trim(),surnameTxt.getText().trim(),convertStringFromDate(dataChooser.getDate()),rolesCbx.getSelectedRowValue());
         ApiManager.getIstance().createUser(user, apiUserDelegate);
     }
     
@@ -154,19 +125,5 @@ public class UserFormPanelController extends ContentPanelController {
     public Logger getLogger() {
         return LOG;
     }
-    
-    public String convertStringToDate(Date indate)
-    {
-       String dateString = null;
-       SimpleDateFormat sdfr = new SimpleDateFormat("dd/MM/yyyy");
-       /*you can also use DateFormat reference instead of SimpleDateFormat 
-        * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-        */
-       try{
-            dateString = sdfr.format( indate );
-       }catch (Exception ex ){
-            LOG.log(java.util.logging.Level.WARNING, "Could not format date {0} to string.",indate.toString());
-       }
-       return dateString;
-    }
+   
 }

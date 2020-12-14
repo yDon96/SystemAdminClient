@@ -7,7 +7,6 @@ package CAAYcyclic.SystemAdiminClient.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import jdk.jfr.Timestamp;
 
 /**
  *
@@ -45,7 +44,15 @@ public class User implements Parcelable{
     public User(String name, String surname, String dob) {
         this.name = name;
         this.surname = surname;
-        this.dateOfBirth = LocalDate.parse(dob,DateTimeFormatter.ofPattern("dd/MM/yyyy"));;
+        this.dateOfBirth = LocalDate.parse(dob,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+    
+    public User(String name, String surname, String dob, String role) {
+        this.name = name;
+        this.surname = surname;
+        this.dateOfBirth = LocalDate.parse(dob,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.role = role;
+
     }
 
     public User() {
