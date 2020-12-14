@@ -24,6 +24,7 @@ public class MainSideBarController extends BarController {
     private JButton dashBtn;
     private JButton procedureBtn;
     private JButton userBtn;
+    private JButton roleBtn;
 
     public MainSideBarController() {
         super();
@@ -42,9 +43,11 @@ public class MainSideBarController extends BarController {
         dashBtn = mainSideBarView.getDashBtn();
         procedureBtn = mainSideBarView.getProcedureBtn();
         userBtn = mainSideBarView.getUserBtn();
+        roleBtn = mainSideBarView.getRoleBtn();
         dashBtn.addMouseListener(dashBtnAction);
         procedureBtn.addMouseListener(procedureBtnAction);
         userBtn.addMouseListener(userBtnAction);
+        roleBtn.addMouseListener(roleBtnAction);
     }
 
     private MouseAdapter dashBtnAction = new MouseAdapter() {
@@ -74,6 +77,16 @@ public class MainSideBarController extends BarController {
             LOG.log(java.util.logging.Level.INFO, "UserButton selected.");
             swichAction(userBtn);
             getCoordinator().switchPanelToUserPanel();
+        }
+    };
+    
+    private MouseAdapter roleBtnAction = new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+            super.mousePressed(mouseEvent);
+            LOG.log(java.util.logging.Level.INFO, "UserButton selected.");
+            swichAction(roleBtn);
+            getCoordinator().switchPanelToRolePanel();
         }
     };
 

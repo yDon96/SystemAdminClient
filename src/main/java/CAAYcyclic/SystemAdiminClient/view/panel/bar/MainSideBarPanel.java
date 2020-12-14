@@ -38,6 +38,10 @@ public final class MainSideBarPanel extends JPanel {
     public JButton getUserBtn() {
         return userBtn;
     }
+
+    public JButton getRoleBtn() {
+        return roleBtn;
+    }
     
     public void highlightButton(JButton button) {
         
@@ -67,6 +71,7 @@ public final class MainSideBarPanel extends JPanel {
         dashBtn = new javax.swing.JButton();
         procedureBtn = new javax.swing.JButton();
         userBtn = new javax.swing.JButton();
+        roleBtn = new javax.swing.JButton();
 
         setBackground(ApplicationColor.primaryColor.value);
 
@@ -80,11 +85,6 @@ public final class MainSideBarPanel extends JPanel {
         dashBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         dashBtn.setMargin(new java.awt.Insets(0, 10, 0, 10));
         dashBtn.setOpaque(true);
-        dashBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashBtnActionPerformed(evt);
-            }
-        });
 
         procedureBtn.setBackground(ApplicationColor.primaryColor.value);
         procedureBtn.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -104,6 +104,15 @@ public final class MainSideBarPanel extends JPanel {
         userBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         userBtn.setOpaque(true);
 
+        roleBtn.setBackground(ApplicationColor.primaryColor.value);
+        roleBtn.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        roleBtn.setForeground(new java.awt.Color(255, 255, 255));
+        roleBtn.setText("Role");
+        roleBtn.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0), javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 3, new java.awt.Color(242, 241, 241))));
+        roleBtn.setBorderPainted(false);
+        roleBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        roleBtn.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,6 +120,7 @@ public final class MainSideBarPanel extends JPanel {
             .addComponent(dashBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
             .addComponent(procedureBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(roleBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,18 +131,17 @@ public final class MainSideBarPanel extends JPanel {
                 .addComponent(procedureBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(roleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void dashBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dashBtn;
     private javax.swing.JButton procedureBtn;
+    private javax.swing.JButton roleBtn;
     private javax.swing.JButton userBtn;
     // End of variables declaration//GEN-END:variables
 }

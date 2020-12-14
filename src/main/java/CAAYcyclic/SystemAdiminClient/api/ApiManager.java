@@ -79,6 +79,13 @@ public class ApiManager {
         call.enqueue(postCallback);
     }
     
+    public void createRole(String role,ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Post role: {0}.", role);
+        this.apiDelegate = apiDelegate;
+        Call<ResponseBody> call = apiCall.postRole(role);
+        call.enqueue(postCallback);
+    }
+    
     public void getUser(Integer id,ApiDelegate apiDelegate){
         LOG.log(java.util.logging.Level.CONFIG, "Get user with id: {0}.", String.valueOf(id));
         this.apiDelegate = apiDelegate;

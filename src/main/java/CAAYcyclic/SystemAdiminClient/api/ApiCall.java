@@ -19,8 +19,8 @@ import retrofit2.http.*;
  */
 public interface ApiCall {
     
-    @GET("/procedure")
-    public Call<Procedure> getProcedure(@Query("id") String id);
+    @GET("/procedure/{id}")
+    public Call<Procedure> getProcedure(@Path("id") String id);
     
     @GET("/procedures")
     public Call<List<Procedure>> getAllProcedure();
@@ -28,8 +28,8 @@ public interface ApiCall {
     @POST("/procedure")
     public Call<ResponseBody> postProcedure(@Body Procedure procedure);
     
-    @GET("/user")
-    public Call<User> getUser(@Query("id") String id);
+    @GET("/user/{id}")
+    public Call<User> getUser(@Path("id") String id);
     
     @GET("/users")
     public Call<List<User>> getAllUser();
@@ -39,4 +39,7 @@ public interface ApiCall {
     
     @GET("/roles")
     public Call<List<Role>> getAllRole();
+    
+    @POST("/role")
+    public Call<ResponseBody> postRole(@Body String procedure);
 }
