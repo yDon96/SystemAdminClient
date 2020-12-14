@@ -15,6 +15,7 @@ import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.RoleFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.UserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
 import CAAYcyclic.SystemAdiminClient.model.Parcelable;
@@ -115,8 +116,15 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         barController.setCoordinator(this);
         navigationController.performViewNavigationTo(barController,panelController);
     }
+
     @Override
     public void navigateToRoleForm() {
+        IContainerViewAbstractFactory roleAbstractFactory = new RoleFormContainerViewFactory();
+        IPanelController panelController = roleAbstractFactory.getContentPanelController();
+        IPanelController barController = roleAbstractFactory.getBarController();
+        panelController.setCoordinator(this);
+        barController.setCoordinator(this);
+        navigationController.performViewNavigationTo(barController,panelController);
     }
     
     
