@@ -5,9 +5,6 @@
  */
 package CAAYcyclic.SystemAdiminClient.model;
 
-import CAAYcyclic.SystemAdiminClient.model.Parcel;
-import CAAYcyclic.SystemAdiminClient.model.Parcelable;
-
 /**
  *
  * @author Youssef
