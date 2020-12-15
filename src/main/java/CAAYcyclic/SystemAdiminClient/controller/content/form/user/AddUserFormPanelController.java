@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -48,6 +49,7 @@ public class AddUserFormPanelController extends UserFormPanelController {
     private void getRolesList() {
         roles = new MyArrayList<>();
         if(getParcels().containsKey(roles.getParcelableDescription())){
+            LOG.log(java.util.logging.Level.CONFIG, "Get roles from parcel object.");
             roles.createFromParcel(getParcels().get(roles.getParcelableDescription()),Role.class);
             for (Role role: roles){
                 rolesCbx.addItem(role.getName());
@@ -68,16 +70,26 @@ public class AddUserFormPanelController extends UserFormPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
+            LOG.log(java.util.logging.Level.CONFIG, "Start save procedure.");
             startSaveProcedure();
         }
     };
     
     private void startSaveProcedure(){
         if(!allRequiredFieldAreValid()){
+            LOG.log(java.util.logging.Level.WARNING, "There are some required field empty or not valid.");
             showSelectionError("One or more field need to be filled.");
             return;
         }
-        User user = new User(nameTxt.getText().trim(),surnameTxt.getText().trim(),convertStringFromDate(dataChooser.getDate()),rolesCbx.getSelectedRowValue());
+        String name = nameTxt.getText().trim();
+        String surname = surnameTxt.getText().trim();
+        if(!textRespectPattern(name) || !textRespectPattern(surname)) {
+            LOG.log(java.util.logging.Level.WARNING, "String do not conform regex pattern.");
+            showSelectionError("The input value must contain only characters of the alphabet.");
+            return;
+        }
+        
+        User user = new User(name,surname,convertStringFromDate(dataChooser.getDate()),rolesCbx.getSelectedRowValue());
         ApiManager.getIstance().createUser(user, apiUserDelegate);
     }
     
@@ -98,6 +110,10 @@ public class AddUserFormPanelController extends UserFormPanelController {
         }
         
         return true;
+    }
+    
+    private boolean textRespectPattern(String input){
+        return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
     }
     
     private ApiUserDelegate apiUserDelegate = new ApiUserDelegate() {
