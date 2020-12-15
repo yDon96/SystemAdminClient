@@ -121,6 +121,13 @@ public class ApiManager {
         call.enqueue(getProceduresCallback);
     }
     
+    public void editProcedure(Integer id,String description,ApiDelegate apiDelegate) {
+        LOG.log(java.util.logging.Level.CONFIG, "Edit procedure with id: {0}.",String.valueOf(id));
+        postCallback.setApiDelegate(apiDelegate);
+        Call<ResponseBody> call = apiCall.putProcedure(id, description);
+        call.enqueue(postCallback);
+    }
+    
     public void assingRole(Integer userId,String role,ApiDelegate apiDelegate){
         LOG.log(java.util.logging.Level.CONFIG, "Assign role to user with id: {0}.",String.valueOf(userId));
         postCallback.setApiDelegate(apiDelegate);

@@ -6,14 +6,14 @@
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ProcedureFormPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
+import CAAYcyclic.SystemAdiminClient.controller.content.form.procedure.EditProcedureFormPanelController;
 
 /**
  *
  * @author Youssef
  */
-public class ProductContainerViewFactory implements IContainerViewAbstractFactory{
+public class EditProcedureContainerViewFactory implements IContainerViewAbstractFactory{
 
     @Override
     public IPanelController getBarController() {
@@ -22,7 +22,7 @@ public class ProductContainerViewFactory implements IContainerViewAbstractFactor
 
     @Override
     public IPanelController getContentPanelController() {
-        return new ProcedureFormPanelController();
+        return new EditProcedureFormPanelController();
     }
     
 }

@@ -6,7 +6,6 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -24,6 +23,9 @@ public interface ApiCall {
     
     @GET("/procedures")
     public Call<List<Procedure>> getAllProcedure();
+    
+    @PUT("/procedure/{id}")
+    public Call<ResponseBody> putProcedure(@Path("id") Integer id,@Query("description") String description);
     
     @POST("/procedure")
     public Call<ResponseBody> postProcedure(@Body Procedure procedure);
