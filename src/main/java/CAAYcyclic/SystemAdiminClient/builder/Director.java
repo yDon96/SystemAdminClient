@@ -25,6 +25,9 @@ public class Director {
     public void constructUserDataPanel(IDataPanelBuilder builder) {
         builder.setTitle(DataPanelTitle.USER.value);
         builder.setTableHeader(TableViewHeaders.USER.value);
+        builder.addAddBtn();
+        builder.addUpdateBtn();
+        builder.addEditBtn();
     }
 
      /**
@@ -33,6 +36,9 @@ public class Director {
     public void constructProcedureDataPanel(IDataPanelBuilder builder) {
         builder.setTitle(DataPanelTitle.PROCEDURE.value);
         builder.setTableHeader(TableViewHeaders.PROCEDURE.value);
+        builder.addAddBtn();
+        builder.addUpdateBtn();
+        builder.addEditBtn();
     }
     
      /**
@@ -41,5 +47,7 @@ public class Director {
     public void constructRoleDataPanel(IDataPanelBuilder builder) {
         builder.setTitle(DataPanelTitle.ROLE.value);
         builder.setTableHeader(TableViewHeaders.ROLE.value);
+        builder.addAddBtn();
+        builder.addUpdateBtn();
     }
 }

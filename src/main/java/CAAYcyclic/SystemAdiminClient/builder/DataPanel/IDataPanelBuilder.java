@@ -21,4 +21,19 @@ public interface IDataPanelBuilder {
      */
     public void setTableHeader(String[] header);
     
+    /**
+     * Set Update button to be visible in Data Panel.
+     */
+    public void addUpdateBtn();
+    
+    /**
+     * Set Edit button to be visible in Data Panel.
+     */
+    public void addEditBtn();
+    
+    /**
+     * Set Add button to be visible in Data Panel.
+     */
+    public void addAddBtn();
+    
 }
