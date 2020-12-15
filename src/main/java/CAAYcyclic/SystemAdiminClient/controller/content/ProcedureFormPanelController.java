@@ -6,7 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
 import java.awt.event.MouseAdapter;
@@ -127,11 +127,12 @@ public class ProcedureFormPanelController extends ContentPanelController {
         procedureForm.setSaveText();
     }
 
+
     private boolean textRespectPattern(String input){
         return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
     }
     
-    private ApiProcedureDelegate apiDelegate = new ApiProcedureDelegate() {
+    private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
         @Override
         public void onGetAllSuccess(List<Procedure> procedures) {
             endSavingProcedure();
