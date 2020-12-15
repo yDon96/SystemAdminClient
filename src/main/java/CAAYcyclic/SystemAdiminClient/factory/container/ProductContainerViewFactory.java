@@ -6,7 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ProcedureFormPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.form.procedure.ProcedureFormPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
 
 /**

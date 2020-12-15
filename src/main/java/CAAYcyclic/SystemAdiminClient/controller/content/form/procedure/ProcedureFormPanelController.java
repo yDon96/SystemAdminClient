@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.form.procedure;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
 import java.awt.event.MouseAdapter;
