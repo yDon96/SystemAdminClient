@@ -149,12 +149,12 @@ public class ProcedurePanelController extends ContentPanelController {
     };
 
     private void startUpdate() {
-        updateBtn.setText("Updating...");
+        updateBtn.setText("Refreshing...");
         ApiManager.getIstance().getProcedures(apiDelegate);
     }
 
     private void endUpdate() {
-        updateBtn.setText("Update");
+        updateBtn.setText("Refresh");
     }
 
     @Override
