@@ -36,8 +36,8 @@ public class DataPanelBuilder implements IDataPanelBuilder{
         datapanel.setTitleLabelValue(title);
         datapanel.setTableHeader(tableHeader);
         datapanel.getAddBtn().setVisible(shouldAddBtnVisible);
-        datapanel.getUpdateBtn().setVisible(shouldEditBtnVisible);
-        datapanel.getEditBtn().setVisible(shouldUpdateBtnVisible);
+        datapanel.getUpdateBtn().setVisible(shouldUpdateBtnVisible);
+        datapanel.getEditBtn().setVisible(shouldEditBtnVisible);
         return datapanel;
     }
 

@@ -15,7 +15,8 @@ import CAAYcyclic.SystemAdiminClient.coordinator.IAppCoordinator;
 import CAAYcyclic.SystemAdiminClient.factory.container.AddUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
-import CAAYcyclic.SystemAdiminClient.factory.container.ProductContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.AddProcedureContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.EditProcedureContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.RoleFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.EditUserFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.navigation.NavigationController;
@@ -115,9 +116,14 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
 
     @Override
     public void navigateToProcedureForm(Parcelable procedure) {
-        IContainerViewAbstractFactory homeContainerViewFactory = new ProductContainerViewFactory();
-        IPanelController panelController = homeContainerViewFactory.getContentPanelController();
-        IPanelController barController = homeContainerViewFactory.getBarController();
+        IContainerViewAbstractFactory procedureFromAbstractFactory;
+        if(procedure != null){
+            procedureFromAbstractFactory = new EditProcedureContainerViewFactory();
+        } else {
+            procedureFromAbstractFactory = new AddProcedureContainerViewFactory(); 
+        }
+        IPanelController panelController = procedureFromAbstractFactory.getContentPanelController();
+        IPanelController barController = procedureFromAbstractFactory.getBarController();
         if(procedure != null){
             panelController.setParcel(procedure.getParcelableDescription(), procedure.convertToParcel());
         }
