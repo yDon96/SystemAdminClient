@@ -7,6 +7,7 @@ package CAAYcyclic.SystemAdiminClient.model;
 
 import CAAYcyclic.SystemAdiminClient.model.Parcel;
 import CAAYcyclic.SystemAdiminClient.model.Parcelable;
+import java.util.Set;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Procedure implements Parcelable{
     Integer id;
     String title;
     String description;
+    Set<String> competencies;
 
     public Procedure(String title, String description) {
         this.title = title;
@@ -24,7 +26,6 @@ public class Procedure implements Parcelable{
     }
 
     public Procedure() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {
@@ -49,6 +50,14 @@ public class Procedure implements Parcelable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<String> getCompetencies() {
+        return competencies;
+    }
+
+    public void setCompetencies(Set<String> competencies) {
+        this.competencies = competencies;
     }
 
     @Override
