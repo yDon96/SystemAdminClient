@@ -47,4 +47,10 @@ public interface ApiCall {
     
     @POST("/role")
     public Call<ResponseBody> postRole(@Query("role") String role);
+    
+    @GET("/competencies")
+    public Call<List<String>> getAllCompetency();
+    
+    @POST("/competency")
+    public Call<ResponseBody> postCompetency(@Query("competency") String competency);
 }

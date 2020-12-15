@@ -42,6 +42,11 @@ public final class MainSideBarPanel extends JPanel {
     public JButton getRoleBtn() {
         return roleBtn;
     }
+
+    public JButton getCompetencyBtn() {
+        return competencyBtn;
+    }
+    
     
     public void highlightButton(JButton button) {
         
@@ -72,6 +77,7 @@ public final class MainSideBarPanel extends JPanel {
         procedureBtn = new javax.swing.JButton();
         userBtn = new javax.swing.JButton();
         roleBtn = new javax.swing.JButton();
+        competencyBtn = new javax.swing.JButton();
 
         setBackground(ApplicationColor.primaryColor.value);
 
@@ -113,6 +119,15 @@ public final class MainSideBarPanel extends JPanel {
         roleBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         roleBtn.setOpaque(true);
 
+        competencyBtn.setBackground(ApplicationColor.primaryColor.value);
+        competencyBtn.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        competencyBtn.setForeground(new java.awt.Color(255, 255, 255));
+        competencyBtn.setText("Competency");
+        competencyBtn.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0), javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 3, new java.awt.Color(242, 241, 241))));
+        competencyBtn.setBorderPainted(false);
+        competencyBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        competencyBtn.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,6 +136,7 @@ public final class MainSideBarPanel extends JPanel {
             .addComponent(procedureBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(roleBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(competencyBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,12 +149,15 @@ public final class MainSideBarPanel extends JPanel {
                 .addComponent(userBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(roleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(competencyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton competencyBtn;
     private javax.swing.JButton dashBtn;
     private javax.swing.JButton procedureBtn;
     private javax.swing.JButton roleBtn;

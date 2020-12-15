@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
 import CAAYcyclic.SystemAdiminClient.api.model.LocalDateSerializer;
+import CAAYcyclic.SystemAdiminClient.model.Competency;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +148,20 @@ public class ApiManager {
         getRolesCallback.setApiDelegate(apiDelegate);
         Call<List<String>> call = apiCall.getAllRole();
         call.enqueue(getRolesCallback);
+    }
+    
+    public void createCompetency(String competency,ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Creating competency: {0}.",competency);
+        postCallback.setApiDelegate(apiDelegate);
+        Call<ResponseBody> call = apiCall.postCompetency(competency);
+        call.enqueue(postCallback);
+    }
+    
+    public void getCompetencyList(ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Get all competency.");
+        getCompetencyCallback.setApiDelegate(apiDelegate);
+        Call<List<String>> call = apiCall.getAllCompetency();
+        call.enqueue(getCompetencyCallback);
     }
     
     private MyCallback<ResponseBody> postCallback = new MyCallback<ResponseBody>(){
@@ -288,6 +303,35 @@ public class ApiManager {
         @Override
         public void onFailure(Call<List<String>> call, Throwable t){
             LOG.log(java.util.logging.Level.SEVERE, "Get roles response is not successful, message: {0}.", t.getMessage());
+            getApiDelegate().onFailure(t.getMessage());
+        };
+    };
+    
+    private MyCallback<List<String>> getCompetencyCallback = new MyCallback<List<String>>(){
+        @Override
+        public void onResponse(Call<List<String>> call, Response<List<String>> response){
+            if (response.isSuccessful()) {
+                LOG.log(java.util.logging.Level.CONFIG, "Get competency response is successful.");
+                List<String> competencyValue = response.body();
+                LOG.log(java.util.logging.Level.CONFIG, "Get {0} competency.", String.valueOf(competencyValue.size()));
+                if(competencyValue != null){
+                    ArrayList<Competency> competencyList = new ArrayList<>();
+                    for(String value:competencyValue){
+                        Competency competency = new Competency();
+                        competency.setName(value);
+                        competencyList.add(competency);
+                    }
+                    getApiDelegate().onGetAllSuccess(competencyList);
+                }
+            } else {
+                LOG.log(java.util.logging.Level.SEVERE, "Get competency response is not successful.");
+                getApiDelegate().onFailure("Could not get competency.");
+            }
+        };
+
+        @Override
+        public void onFailure(Call<List<String>> call, Throwable t){
+            LOG.log(java.util.logging.Level.SEVERE, "Get competency response is not successful, message: {0}.", t.getMessage());
             getApiDelegate().onFailure(t.getMessage());
         };
     };

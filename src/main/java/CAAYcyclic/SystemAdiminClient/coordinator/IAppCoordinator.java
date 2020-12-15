@@ -22,11 +22,15 @@ public interface IAppCoordinator {
     
     void switchPanelToRolePanel();
     
+    public void switchPanelToCompetencyPanel();
+    
     void navigateToProcedureForm(Parcelable procedure);
     
     void navigateToUserForm(Parcelable user, Parcelable rolesList);
     
     void navigateToRoleForm();
+    
+    void navigateToCompetencyForm();
     
     void popBack();
     

@@ -8,6 +8,7 @@ package CAAYcyclic.SystemAdiminClient.coordinator.impl;
 import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.IAlertBuilder;
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.content.datapanel.CompetencyPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.datapanel.ProcedurePanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.datapanel.RolePanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.datapanel.UserPanelController;
@@ -16,6 +17,7 @@ import CAAYcyclic.SystemAdiminClient.factory.container.AddUserFormContainerViewF
 import CAAYcyclic.SystemAdiminClient.factory.container.HomeContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.IContainerViewAbstractFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.AddProcedureContainerViewFactory;
+import CAAYcyclic.SystemAdiminClient.factory.container.CompetencyFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.EditProcedureContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.RoleFormContainerViewFactory;
 import CAAYcyclic.SystemAdiminClient.factory.container.EditUserFormContainerViewFactory;
@@ -81,6 +83,16 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         rolePanelController.setCoordinator(this);
         navigationController.performPanelNavigationTo(rolePanelController);
     }
+    
+    @Override
+    public void switchPanelToCompetencyPanel() {
+        IPanelController competencyPanelController = navigationController.retrivePanelFromMap(CompetencyPanelController.class.getName());
+        if(competencyPanelController == null) {
+            competencyPanelController = new CompetencyPanelController();
+        }
+        competencyPanelController.setCoordinator(this);
+        navigationController.performPanelNavigationTo(competencyPanelController);
+    }
 
     @Override
     public void navigateToUserForm(Parcelable user, Parcelable rolesList) {
@@ -142,5 +154,13 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         navigationController.performViewNavigationTo(barController,panelController);
     }
     
-    
+    @Override
+    public void navigateToCompetencyForm() {
+        IContainerViewAbstractFactory competencyAbstractFactory = new CompetencyFormContainerViewFactory();
+        IPanelController panelController = competencyAbstractFactory.getContentPanelController();
+        IPanelController barController = competencyAbstractFactory.getBarController();
+        panelController.setCoordinator(this);
+        barController.setCoordinator(this);
+        navigationController.performViewNavigationTo(barController,panelController);
+    }
 }
