@@ -5,8 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
-import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 
 
 /**
@@ -19,12 +18,12 @@ public interface IContainerViewAbstractFactory {
      * Generate the Bar panel controller assosieted to View Controller.
      * @return BarController
      */
-    BarController getBarController();
+    IPanelController getBarController();
     
      /**
      * Generate the Panel controller assosieted to View Controller.
      * @return ContentPanelController
      */
-    ContentPanelController getContentPanelController();
+    IPanelController getContentPanelController();
     
 }

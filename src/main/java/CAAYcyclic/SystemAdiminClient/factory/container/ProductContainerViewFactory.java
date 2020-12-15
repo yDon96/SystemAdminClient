@@ -5,10 +5,9 @@
  */
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
+import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.content.ProcedureFormPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.BackBarController;
-import CAAYcyclic.SystemAdiminClient.controller.bar.BarController;
-import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 
 /**
  *
@@ -17,12 +16,12 @@ import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 public class ProductContainerViewFactory implements IContainerViewAbstractFactory{
 
     @Override
-    public BarController getBarController() {
+    public IPanelController getBarController() {
         return new BackBarController();
     }
 
     @Override
-    public ContentPanelController getContentPanelController() {
+    public IPanelController getContentPanelController() {
         return new ProcedureFormPanelController();
     }
     
