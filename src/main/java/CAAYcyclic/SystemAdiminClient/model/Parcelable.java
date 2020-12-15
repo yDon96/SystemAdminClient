@@ -17,4 +17,5 @@ public interface Parcelable {
      
      void createFromParcel(Parcel parcel);
     
+     Object[] convetToObjectArray();
 }

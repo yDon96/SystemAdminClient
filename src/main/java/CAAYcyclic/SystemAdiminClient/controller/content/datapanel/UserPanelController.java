@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.datapanel;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,8 +39,9 @@ public class UserPanelController extends ContentPanelController {
     public JButton editBtn;
     public JButton addBtn;
     private JLabel numberOfRow;
-    private JTable table;
+    private CustomJTable table;
     private List<User> userList;
+    private User selectedUser;
     private MyArrayList<Role> roles;
 
 
@@ -77,8 +81,15 @@ public class UserPanelController extends ContentPanelController {
         updateBtn = userView.getUpdateBtn();
         editBtn = userView.getEditBtn();
         addBtn = userView.getAddBtn();
-        table = userView.getTableView();
+        table = (CustomJTable) userView.getTableView();
+        table.setTableDelegate(tableDelegate);
+        setTableDataSource(table);
         numberOfRow = userView.getNumberOfRow();
+    }
+    
+    private void setTableDataSource(CustomJTable jtable){
+        TableDataSource<User> datasource = new TableDataSource<>();
+        jtable.setiTableDataSource(datasource);
     }
     
     private void setButtonAction() {
@@ -99,13 +110,13 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            if (table.getRowCount() < 0 || table.getSelectedRow() < 0) {
+            if (selectedUser == null) {
                 LOG.log(java.util.logging.Level.WARNING, "Number of row is \"0\" or no row is selected.");
                 showError("Edit Error", "No element is selected.");
                 return;
             } else {
                 editBtn.setSelected(false);
-                getCoordinator().navigateToUserForm(userList.get(table.getSelectedRow()),roles);
+                getCoordinator().navigateToUserForm(selectedUser,roles);
             }
         }
     };
@@ -116,6 +127,19 @@ public class UserPanelController extends ContentPanelController {
             super.mousePressed(mouseEvent);
             getCoordinator().navigateToUserForm(null,roles);
         }
+    };
+    
+    private ITableDelegate tableDelegate = new ITableDelegate() {
+        @Override
+        public void didSelectRowAt(JTable jTable, Integer selectedIndexRow) {
+            selectedUser = userList.get(selectedIndexRow);
+        }
+
+        @Override
+        public void didDeselectRowAt(JTable jTable, Integer deselectedIndexRow) {
+            selectedUser = null;
+        }
+        
     };
     
     private ApiDelegate<Role> apiRoleDelegate = new ApiDelegate<Role>() {
@@ -143,15 +167,8 @@ public class UserPanelController extends ContentPanelController {
         public void onGetAllSuccess(List<User> users) {
             if (users.size() > 0) {
                 setUserList(users);
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                Integer rowNumber = table.getRowCount();
-                for (int index = rowNumber - 1; index >= 0; index--) {
-                    model.removeRow(index);
-                }
-                for (User user : users) {
-                    Object[] row = {user.getUser_id(), user.getName(), user.getSurname(), user.getDob().format(DateTimeFormatter.ISO_DATE)};
-                    model.addRow(row);
-                }
+                table.getiTableDataSource().setElementToDisplay(users);
+                table.refreshData();
                 numberOfRow.setText(String.valueOf(table.getRowCount()));
             }
         }
