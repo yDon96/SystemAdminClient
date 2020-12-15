@@ -10,6 +10,7 @@ import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
@@ -36,7 +37,8 @@ public class ProcedurePanelController extends ContentPanelController {
     private JButton addBtn;
     private JLabel numberOfRow;
     private CustomJTable table;
-    List<Procedure> procedures;
+    private Procedure selectedProcedure;
+    private List<Procedure> procedures;
 
     public ProcedurePanelController() {
         super();
@@ -61,6 +63,7 @@ public class ProcedurePanelController extends ContentPanelController {
         editBtn = procedureView.getEditBtn();
         addBtn = procedureView.getAddBtn();
         table = (CustomJTable) procedureView.getTableView();
+        table.setTableDelegate(tableDelegate);
         setTableDataSource(table);
         numberOfRow = procedureView.getNumberOfRow();
     }
@@ -90,7 +93,7 @@ public class ProcedurePanelController extends ContentPanelController {
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
             LOG.log(java.util.logging.Level.INFO, "Start edit action.");
-            if (table.getRowCount() < 0 || table.getSelectedRow() < 0) {
+            if (selectedProcedure == null) {
                 LOG.log(java.util.logging.Level.WARNING, "Number of row is \"0\" or no row is selected.");
                 showError("Edit Error", "No element is selected.");
                 return;
@@ -119,6 +122,19 @@ public class ProcedurePanelController extends ContentPanelController {
     public void setProcedures(List<Procedure> procedures) {
         this.procedures = procedures;
     }
+    
+    private ITableDelegate tableDelegate = new ITableDelegate() {
+        @Override
+        public void didSelectRowAt(JTable jTable, Integer selectedIndexRow) {
+            selectedProcedure = procedures.get(selectedIndexRow);
+        }
+
+        @Override
+        public void didDeselectRowAt(JTable jTable, Integer deselectedIndexRow) {
+            selectedProcedure = null;
+        }
+        
+    };
 
     private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
         @Override

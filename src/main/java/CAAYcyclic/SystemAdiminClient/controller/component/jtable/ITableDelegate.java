@@ -5,10 +5,16 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.component.jtable;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author Youssef
  */
 public interface ITableDelegate {
     
+    void didSelectRowAt(JTable jTable, Integer selectedIndexRow);
+
+    void didDeselectRowAt(JTable jTable, Integer deselectedIndexRow);
+
 }

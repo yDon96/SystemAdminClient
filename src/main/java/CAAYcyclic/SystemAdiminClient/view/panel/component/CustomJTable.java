@@ -6,6 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.view.panel.component;
 
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDataSource;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,10 @@ import javax.swing.table.TableModel;
 public class CustomJTable extends JTable{
     
     private ITableDataSource iTableDataSource;
+    
+    private ITableDelegate tableDelegate;
+    
+    private Integer lastRowSelected = -1;
 
     public CustomJTable() {
     }
@@ -51,6 +56,10 @@ public class CustomJTable extends JTable{
     public ITableDataSource getiTableDataSource() {
         return iTableDataSource;
     }
+
+    public void setTableDelegate(ITableDelegate tableDelegate) {
+        this.tableDelegate = tableDelegate;
+    }
     
     public void refreshData(){
         DefaultTableModel model = (DefaultTableModel) this.dataModel;
@@ -66,6 +75,20 @@ public class CustomJTable extends JTable{
     public void changeSelection(int rowIndex, int columnIndex,
             boolean toggle, boolean extend) {
         super.changeSelection(rowIndex, columnIndex, true, false);
+        handleSelection();
+    }
+    
+    private void handleSelection(){
+        if(tableDelegate != null){
+            int rowIndex = this.getSelectedRow();
+            if(rowIndex < 0){
+                tableDelegate.didDeselectRowAt(this, lastRowSelected);
+                lastRowSelected = -1;
+            } else {
+                lastRowSelected = rowIndex;
+                tableDelegate.didSelectRowAt(this, lastRowSelected);
+            }
+        }
     }
     
     @Override

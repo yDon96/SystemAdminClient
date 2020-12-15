@@ -9,6 +9,7 @@ import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
@@ -40,6 +41,7 @@ public class UserPanelController extends ContentPanelController {
     private JLabel numberOfRow;
     private CustomJTable table;
     private List<User> userList;
+    private User selectedUser;
     private MyArrayList<Role> roles;
 
 
@@ -80,6 +82,7 @@ public class UserPanelController extends ContentPanelController {
         editBtn = userView.getEditBtn();
         addBtn = userView.getAddBtn();
         table = (CustomJTable) userView.getTableView();
+        table.setTableDelegate(tableDelegate);
         setTableDataSource(table);
         numberOfRow = userView.getNumberOfRow();
     }
@@ -107,13 +110,13 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            if (table.getRowCount() < 0 || table.getSelectedRow() < 0) {
+            if (selectedUser == null) {
                 LOG.log(java.util.logging.Level.WARNING, "Number of row is \"0\" or no row is selected.");
                 showError("Edit Error", "No element is selected.");
                 return;
             } else {
                 editBtn.setSelected(false);
-                getCoordinator().navigateToUserForm(userList.get(table.getSelectedRow()),roles);
+                getCoordinator().navigateToUserForm(selectedUser,roles);
             }
         }
     };
@@ -124,6 +127,19 @@ public class UserPanelController extends ContentPanelController {
             super.mousePressed(mouseEvent);
             getCoordinator().navigateToUserForm(null,roles);
         }
+    };
+    
+    private ITableDelegate tableDelegate = new ITableDelegate() {
+        @Override
+        public void didSelectRowAt(JTable jTable, Integer selectedIndexRow) {
+            selectedUser = userList.get(selectedIndexRow);
+        }
+
+        @Override
+        public void didDeselectRowAt(JTable jTable, Integer deselectedIndexRow) {
+            selectedUser = null;
+        }
+        
     };
     
     private ApiDelegate<Role> apiRoleDelegate = new ApiDelegate<Role>() {
