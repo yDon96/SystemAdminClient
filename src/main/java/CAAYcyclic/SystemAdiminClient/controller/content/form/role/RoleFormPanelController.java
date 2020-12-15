@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -55,9 +56,19 @@ public class RoleFormPanelController extends ContentPanelController {
     
     private void saveProcedure(){
         if(!areAllRequiredFieldValid()){
+            LOG.log(java.util.logging.Level.WARNING, "There are some required field empty or not valid.");
+            showSelectionError("One or more field is not valid.");
             return;
         }
+        
         String role = nameTxt.getText();
+        
+        if(!textRespectPattern(role)) {
+            LOG.log(java.util.logging.Level.WARNING, "String do not conform regex pattern.");
+            showSelectionError("The input value must contain only characters of the alphabet.");
+            return;
+        }
+        
         ApiManager.getIstance().createRole(role, roleDelegate);
     }
     
@@ -69,11 +80,16 @@ public class RoleFormPanelController extends ContentPanelController {
         
         return true;
     }
+    
+    private boolean textRespectPattern(String input){
+        return Pattern.matches("^[a-zA-Z]+$",input);
+    }
 
     private MouseAdapter saveBtnAction = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
+            LOG.log(java.util.logging.Level.CONFIG, "Start save procedure.");
             saveProcedure();
         }
     };

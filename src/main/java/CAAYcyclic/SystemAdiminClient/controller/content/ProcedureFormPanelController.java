@@ -6,14 +6,14 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -29,7 +29,6 @@ public class ProcedureFormPanelController extends ContentPanelController {
     private ProcedureFormPanel procedureForm;
 
     private JButton saveBtn;
-    private JButton cancelBtn;
     private JTextArea descriptionTxt;
     private JTextField titleTxt;
     private Procedure procedure;
@@ -51,6 +50,7 @@ public class ProcedureFormPanelController extends ContentPanelController {
             titleTxt.setText(procedure.getTitle());
             descriptionTxt.setText(procedure.getDescription());
             createProcedure = false;
+            titleTxt.setEditable(false);
         }
         
     }
@@ -86,57 +86,53 @@ public class ProcedureFormPanelController extends ContentPanelController {
             }
         }
     };
-
-    private Procedure generateProcedure() {
-        if (isTitleEmpty()) {
-            return null;
-        }
-        Procedure procedure = new Procedure();
-        procedure.setTitle(titleTxt.getText().trim());
-        procedure.setDescription(descriptionTxt.getText().trim());
-        return procedure;
-    }
     
-    private boolean isTitleEmpty(){
+    private boolean areAllRequiredFieldValid(){
         if (titleTxt.getText().equals("")) {
             LOG.log(java.util.logging.Level.WARNING, "Title cannot be null.");
             procedureForm.setTitleInvalid();
-            showError("Title cannot be null.");
+            showSelectionError("Title cannot be null.");
             return true;
         }
         return false;
     }
 
-    private void showError(String message) {
-        AlertDialogBuilder alertBuilder = new AlertDialogBuilder();
-        alertBuilder.setTitle("Error");
-        alertBuilder.setMessage(message);
-        alertBuilder.setDefaultPositiveAction();
-        getCoordinator().showAlert(alertBuilder);
-    }
-
     private void startSavingProcedure() {
-        Procedure procedure = generateProcedure();
-        if (procedure != null) {
-            procedureForm.setSavingText();
-            ApiManager.getIstance().createProcedure(procedure, apiDelegate);
+        if(!areAllRequiredFieldValid()){
+            LOG.log(java.util.logging.Level.WARNING, "There are some required field empty or not valid.");
+            showSelectionError("One or more field need to be filled.");
+            return;
         }
+        
+        String title = titleTxt.getText().trim();
+        
+        if(!textRespectPattern(title)) {
+            LOG.log(java.util.logging.Level.WARNING, "String do not conform regex pattern.");
+            showSelectionError("The input value must contain only characters of the alphabet.");
+            return;
+        }
+        
+        Procedure procedure = new Procedure(title,descriptionTxt.getText().trim());
+        procedureForm.setSavingText();
+        ApiManager.getIstance().createProcedure(procedure, apiDelegate);
     }
     
     private void startEditProcedure() {
-        if (!isTitleEmpty()) {
-            procedure.setTitle(titleTxt.getText().trim());
-            procedure.setDescription(descriptionTxt.getText().trim());
-            procedureForm.setSavingText();
-            ApiManager.getIstance().createProcedure(procedure, apiDelegate);
-        }
+        procedure.setDescription(descriptionTxt.getText().trim());
+        procedureForm.setSavingText();
+        ApiManager.getIstance().createProcedure(procedure, apiDelegate);
     }
 
     private void endSavingProcedure() {
         procedureForm.setSaveText();
     }
 
-    private ApiProcedureDelegate apiDelegate = new ApiProcedureDelegate() {
+
+    private boolean textRespectPattern(String input){
+        return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
+    }
+    
+    private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
         @Override
         public void onGetAllSuccess(List<Procedure> procedures) {
             endSavingProcedure();
@@ -150,7 +146,7 @@ public class ProcedureFormPanelController extends ContentPanelController {
         @Override
         public void onFailure(String message) {
             endSavingProcedure();
-            showError(message);
+            showSelectionError(message);
         }
 
         @Override

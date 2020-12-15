@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.api.delegate;
+package CAAYcyclic.SystemAdiminClient.api.callback;
 
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import retrofit2.Callback;
 
 /**

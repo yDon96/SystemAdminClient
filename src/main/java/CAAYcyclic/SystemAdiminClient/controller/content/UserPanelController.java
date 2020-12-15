@@ -6,9 +6,8 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiRoleDelegate;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiUserDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
@@ -119,7 +118,7 @@ public class UserPanelController extends ContentPanelController {
         }
     };
     
-    private ApiRoleDelegate apiRoleDelegate = new ApiRoleDelegate() {
+    private ApiDelegate<Role> apiRoleDelegate = new ApiDelegate<Role>() {
         @Override
         public void onGetAllSuccess(List<Role> roles) {
             setRoles(roles);
@@ -139,7 +138,7 @@ public class UserPanelController extends ContentPanelController {
         }
     };
 
-    private ApiUserDelegate apiDelegate = new ApiUserDelegate() {
+    private ApiDelegate<User> apiDelegate = new ApiDelegate<User>() {
         @Override
         public void onGetAllSuccess(List<User> users) {
             if (users.size() > 0) {

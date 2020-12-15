@@ -6,7 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.api;
 
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
-import CAAYcyclic.SystemAdiminClient.api.delegate.MyCallback;
+import CAAYcyclic.SystemAdiminClient.api.callback.MyCallback;
 import CAAYcyclic.SystemAdiminClient.api.model.LocalDateDeserializer;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.api.model.ServerSettings;

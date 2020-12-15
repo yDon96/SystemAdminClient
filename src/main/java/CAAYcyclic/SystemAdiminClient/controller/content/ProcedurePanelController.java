@@ -6,9 +6,8 @@
 package CAAYcyclic.SystemAdiminClient.controller.content;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
-import CAAYcyclic.SystemAdiminClient.api.delegate.ApiProcedureDelegate;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
-import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.impl.AlertDialogBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
@@ -113,7 +112,7 @@ public class ProcedurePanelController extends ContentPanelController {
         this.procedures = procedures;
     }
 
-    private ApiProcedureDelegate apiDelegate = new ApiProcedureDelegate() {
+    private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
         @Override
         public void onGetAllSuccess(List<Procedure> procedures) {
             endUpdate();
