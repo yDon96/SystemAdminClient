@@ -66,5 +66,15 @@ public class MyArrayList<E extends Parcelable> extends ArrayList<E> implements P
     private E generateGeneric() throws InstantiationException, IllegalAccessException {
         return objectClass.newInstance();
     }
+
+    @Override
+    public Object[] convetToObjectArray() {
+        Object[] object = new Object[this.size()];
+        for(E element: this){
+            Integer index = this.indexOf(element);
+            object[index] = element.convetToObjectArray();
+        }
+        return object;
+    }
     
 }

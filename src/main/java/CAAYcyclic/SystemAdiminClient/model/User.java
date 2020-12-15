@@ -127,5 +127,8 @@ public class User implements Parcelable{
         this.role = parcel.readString();
     }
     
-    
+    @Override
+    public Object[] convetToObjectArray(){
+        return new Object[] {user_id , name, surname, dateOfBirth.format(DateTimeFormatter.ISO_DATE), role};
+    }
 }

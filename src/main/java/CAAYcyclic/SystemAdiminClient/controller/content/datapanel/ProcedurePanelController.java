@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.datapanel;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,7 +20,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,7 +35,7 @@ public class ProcedurePanelController extends ContentPanelController {
     private JButton editBtn;
     private JButton addBtn;
     private JLabel numberOfRow;
-    private JTable table;
+    private CustomJTable table;
     List<Procedure> procedures;
 
     public ProcedurePanelController() {
@@ -58,8 +60,14 @@ public class ProcedurePanelController extends ContentPanelController {
         updateBtn = procedureView.getUpdateBtn();
         editBtn = procedureView.getEditBtn();
         addBtn = procedureView.getAddBtn();
-        table = procedureView.getTableView();
+        table = (CustomJTable) procedureView.getTableView();
+        setTableDataSource(table);
         numberOfRow = procedureView.getNumberOfRow();
+    }
+    
+    private void setTableDataSource(CustomJTable jtable){
+        TableDataSource<Procedure> datasource = new TableDataSource<>();
+        jtable.setiTableDataSource(datasource);
     }
 
     private void setButtonAction() {
@@ -118,15 +126,8 @@ public class ProcedurePanelController extends ContentPanelController {
             endUpdate();
             if (procedures.size() > 0) {
                 setProcedures(procedures);
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                Integer rowNumber = table.getRowCount();
-                for (int index = rowNumber - 1; index >= 0; index--) {
-                    model.removeRow(index);
-                }
-                for (Procedure procedure : procedures) {
-                    Object[] row = {procedure.getId(), procedure.getTitle(), procedure.getDescription()};
-                    model.addRow(row);
-                }
+                table.getiTableDataSource().setElementToDisplay(procedures);
+                table.refreshData();
                 numberOfRow.setText(String.valueOf(table.getRowCount()));
             }
         }

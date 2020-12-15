@@ -5,9 +5,6 @@
  */
 package CAAYcyclic.SystemAdiminClient.model;
 
-import CAAYcyclic.SystemAdiminClient.model.Parcel;
-import CAAYcyclic.SystemAdiminClient.model.Parcelable;
-
 /**
  *
  * @author Youssef
@@ -72,5 +69,9 @@ public class Procedure implements Parcelable{
         this.description = parcel.readString();
     }
     
+    @Override
+    public Object[] convetToObjectArray(){
+        return new Object[] {id , title, description};
+    }
     
 }

@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.datapanel;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.Role;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,8 +20,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,7 +34,7 @@ public class RolePanelController extends ContentPanelController{
     private JButton editBtn;
     private JButton addBtn;
     private JLabel numberOfRow;
-    private JTable table;
+    private CustomJTable table;
     private List<Role> roleList;
     
     public RolePanelController() {
@@ -57,8 +58,14 @@ public class RolePanelController extends ContentPanelController{
         updateBtn = rolePanel.getUpdateBtn();
         editBtn = rolePanel.getEditBtn();
         addBtn = rolePanel.getAddBtn();
-        table = rolePanel.getTableView();
+        table = (CustomJTable) rolePanel.getTableView();
+        setTableDataSource(table);
         numberOfRow = rolePanel.getNumberOfRow();
+    }
+    
+    private void setTableDataSource(CustomJTable jtable){
+        TableDataSource<Role> datasource = new TableDataSource<>();
+        jtable.setiTableDataSource(datasource);
     }
     
     private void setButtonAction() {
@@ -89,20 +96,13 @@ public class RolePanelController extends ContentPanelController{
         newThread.start();
     }
     
-    private ApiDelegate<Role> roleDelegate = new ApiDelegate<Role>() {
+    private final ApiDelegate<Role> roleDelegate = new ApiDelegate<Role>() {
         @Override
         public void onGetAllSuccess(List<Role> roles) {
             if (roles.size() > 0) {
                 setRoleList(roles);
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                Integer rowNumber = table.getRowCount();
-                for (int index = rowNumber - 1; index >= 0; index--) {
-                    model.removeRow(index);
-                }
-                for (Role role : roles) {
-                    Object[] row = {role.getId(), role.getName()};
-                    model.addRow(row);
-                }
+                table.getiTableDataSource().setElementToDisplay(roles);
+                table.refreshData();
                 numberOfRow.setText(String.valueOf(table.getRowCount()));
             }
         }

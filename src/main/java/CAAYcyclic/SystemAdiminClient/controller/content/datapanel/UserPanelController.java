@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.content;
+package CAAYcyclic.SystemAdiminClient.controller.content.datapanel;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.builder.DataPanel.impl.DataPanelBuilder;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.builder.Director;
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
+import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,7 +38,7 @@ public class UserPanelController extends ContentPanelController {
     public JButton editBtn;
     public JButton addBtn;
     private JLabel numberOfRow;
-    private JTable table;
+    private CustomJTable table;
     private List<User> userList;
     private MyArrayList<Role> roles;
 
@@ -77,8 +79,14 @@ public class UserPanelController extends ContentPanelController {
         updateBtn = userView.getUpdateBtn();
         editBtn = userView.getEditBtn();
         addBtn = userView.getAddBtn();
-        table = userView.getTableView();
+        table = (CustomJTable) userView.getTableView();
+        setTableDataSource(table);
         numberOfRow = userView.getNumberOfRow();
+    }
+    
+    private void setTableDataSource(CustomJTable jtable){
+        TableDataSource<User> datasource = new TableDataSource<>();
+        jtable.setiTableDataSource(datasource);
     }
     
     private void setButtonAction() {
@@ -143,15 +151,8 @@ public class UserPanelController extends ContentPanelController {
         public void onGetAllSuccess(List<User> users) {
             if (users.size() > 0) {
                 setUserList(users);
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                Integer rowNumber = table.getRowCount();
-                for (int index = rowNumber - 1; index >= 0; index--) {
-                    model.removeRow(index);
-                }
-                for (User user : users) {
-                    Object[] row = {user.getUser_id(), user.getName(), user.getSurname(), user.getDob().format(DateTimeFormatter.ISO_DATE)};
-                    model.addRow(row);
-                }
+                table.getiTableDataSource().setElementToDisplay(users);
+                table.refreshData();
                 numberOfRow.setText(String.valueOf(table.getRowCount()));
             }
         }

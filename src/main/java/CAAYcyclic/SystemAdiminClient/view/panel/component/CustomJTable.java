@@ -5,8 +5,10 @@
  */
 package CAAYcyclic.SystemAdiminClient.view.panel.component;
 
+import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDataSource;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
@@ -15,6 +17,8 @@ import javax.swing.table.TableModel;
  * @author Youssef
  */
 public class CustomJTable extends JTable{
+    
+    private ITableDataSource iTableDataSource;
 
     public CustomJTable() {
     }
@@ -38,8 +42,25 @@ public class CustomJTable extends JTable{
     public CustomJTable(Object[][] rowData, Object[] columnNames) {
         super(rowData, columnNames);
     }
+
+    public void setiTableDataSource(ITableDataSource iTableDataSource) {
+        this.iTableDataSource = iTableDataSource;
+        refreshData();
+    }
+
+    public ITableDataSource getiTableDataSource() {
+        return iTableDataSource;
+    }
     
-    
+    public void refreshData(){
+        DefaultTableModel model = (DefaultTableModel) this.dataModel;
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        Integer newRowNumber = iTableDataSource.numberOfRow(this);
+        for(int indexRow=0; indexRow< newRowNumber; indexRow++) {
+            model.addRow(iTableDataSource.tablePanel(this, indexRow));
+        }
+    }
     
     @Override
     public void changeSelection(int rowIndex, int columnIndex,

@@ -49,5 +49,9 @@ public class Role implements Parcelable{
         this.name = parcel.readString();
     }
     
+    @Override
+    public Object[] convetToObjectArray(){
+        return new Object[] {id , name};
+    }
     
 }
