@@ -27,6 +27,9 @@ public interface ApiCall {
     @PUT("/procedure/{id}")
     public Call<ResponseBody> putProcedure(@Path("id") Integer id,@Query("description") String description);
     
+    @PUT("/procedure/{id}/assign-competencies")
+    public Call<ResponseBody> assignCompetenciesToProcedure(@Path("id") Integer id,@Query("competencies") List<String> competencies);
+    
     @POST("/procedure")
     public Call<ResponseBody> postProcedure(@Body Procedure procedure);
     
@@ -38,6 +41,9 @@ public interface ApiCall {
     
     @PUT("/user/{id}/assign-role")
     public Call<ResponseBody> putRoleToUser(@Path("id") Integer id,@Query("role") String role);
+    
+    @PUT("/user/{id}/assign-competencies")
+    public Call<ResponseBody> assignCompetenciesToUser(@Path("id") Integer id,@Query("competencies") List<String> competencies);
     
     @POST("/user")
     public Call<ResponseBody> postUser(@Body User user);

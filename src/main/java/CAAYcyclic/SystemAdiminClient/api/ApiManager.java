@@ -101,6 +101,13 @@ public class ApiManager {
         call.enqueue(getUsersCallback);
     }
     
+    public void assingCompenteciesToUser(Integer userId,List<String> competencies,ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Assign competencies to user with id: {0}.",String.valueOf(userId));
+        postCallback.setApiDelegate(apiDelegate);
+        Call<ResponseBody> call = apiCall.assignCompetenciesToUser(userId, competencies);
+        call.enqueue(postCallback);
+    }
+    
     public void createProcedure(Procedure procedure,ApiDelegate apiDelegate){
         LOG.log(java.util.logging.Level.CONFIG, "Post procedure: {0}.", procedure.getTitle());
         postCallback.setApiDelegate(apiDelegate);
@@ -120,6 +127,13 @@ public class ApiManager {
         getProceduresCallback.setApiDelegate(apiDelegate);
         Call<List<Procedure>> call = apiCall.getAllProcedure();
         call.enqueue(getProceduresCallback);
+    }
+    
+    public void assingCompenteciesToProcedure(Integer userId,List<String> competencies,ApiDelegate apiDelegate){
+        LOG.log(java.util.logging.Level.CONFIG, "Assign competencies to user with id: {0}.",String.valueOf(userId));
+        postCallback.setApiDelegate(apiDelegate);
+        Call<ResponseBody> call = apiCall.assignCompetenciesToProcedure(userId, competencies);
+        call.enqueue(postCallback);
     }
     
     public void editProcedure(Integer id,String description,ApiDelegate apiDelegate) {
