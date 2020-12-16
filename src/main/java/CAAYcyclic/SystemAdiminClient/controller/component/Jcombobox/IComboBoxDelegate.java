@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CAAYcyclic.SystemAdiminClient.controller.component.jtable;
+package CAAYcyclic.SystemAdiminClient.controller.component.Jcombobox;
 
-import javax.swing.JTable;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author Youssef
  */
-public interface ITableDelegate {
+public interface IComboBoxDelegate {
     
-    void didSelectRowAt(JTable jTable, Integer selectedIndexRow);
+    void didSelectRowAt(JComboBox combobox, Integer selectedIndexRow);
 
-    void didDeselectRowAt(JTable jTable, Integer deselectedIndexRow);
+    void didDeselectRowAt(JComboBox combobox, Integer deselectedIndexRow);
 
 }
