@@ -38,17 +38,18 @@ public class MainFrame extends javax.swing.JFrame {
         contentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1030, 698));
-        setPreferredSize(new java.awt.Dimension(1030, 698));
+        setMinimumSize(new java.awt.Dimension(1050, 698));
+        setPreferredSize(new java.awt.Dimension(1050, 698));
         setSize(new java.awt.Dimension(1030, 698));
 
-        barPanel.setMinimumSize(new java.awt.Dimension(151, 666));
+        barPanel.setMinimumSize(new java.awt.Dimension(171, 666));
+        barPanel.setPreferredSize(new java.awt.Dimension(171, 698));
 
         javax.swing.GroupLayout barPanelLayout = new javax.swing.GroupLayout(barPanel);
         barPanel.setLayout(barPanelLayout);
         barPanelLayout.setHorizontalGroup(
             barPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 171, Short.MAX_VALUE)
         );
         barPanelLayout.setVerticalGroup(
             barPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
