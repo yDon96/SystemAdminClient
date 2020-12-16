@@ -24,9 +24,9 @@ public interface IAppCoordinator {
     
     public void switchPanelToCompetencyPanel();
     
-    void navigateToProcedureForm(Parcelable procedure);
+    void navigateToProcedureForm(Parcelable procedure,Parcelable competencies);
     
-    void navigateToUserForm(Parcelable user, Parcelable rolesList);
+    void navigateToUserForm(Parcelable user, Parcelable rolesList, Parcelable competencies);
     
     void navigateToRoleForm();
     

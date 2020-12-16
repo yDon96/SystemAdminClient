@@ -95,7 +95,7 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
     }
 
     @Override
-    public void navigateToUserForm(Parcelable user, Parcelable rolesList) {
+    public void navigateToUserForm(Parcelable user, Parcelable rolesList,Parcelable competencies) {
         IContainerViewAbstractFactory userFormContainerViewFactory;
         if(user != null){
             userFormContainerViewFactory = new EditUserFormContainerViewFactory();
@@ -109,6 +109,9 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         }
         if(rolesList != null){
             panelController.setParcel(rolesList.getParcelableDescription(), rolesList.convertToParcel());
+        }
+        if(competencies != null){
+            panelController.setParcel(competencies.getParcelableDescription(), competencies.convertToParcel());
         }
         panelController.setCoordinator(this);
         barController.setCoordinator(this);
@@ -127,7 +130,7 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
     }
 
     @Override
-    public void navigateToProcedureForm(Parcelable procedure) {
+    public void navigateToProcedureForm(Parcelable procedure,Parcelable competencies) {
         IContainerViewAbstractFactory procedureFromAbstractFactory;
         if(procedure != null){
             procedureFromAbstractFactory = new EditProcedureContainerViewFactory();
@@ -138,6 +141,9 @@ public class AppCoordinator extends Coordinator implements IAppCoordinator{
         IPanelController barController = procedureFromAbstractFactory.getBarController();
         if(procedure != null){
             panelController.setParcel(procedure.getParcelableDescription(), procedure.convertToParcel());
+        }
+        if(competencies != null){
+            panelController.setParcel(competencies.getParcelableDescription(), competencies.convertToParcel());
         }
         panelController.setCoordinator(this);
         barController.setCoordinator(this);

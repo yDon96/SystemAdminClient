@@ -12,6 +12,7 @@ import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+import CAAYcyclic.SystemAdiminClient.model.Competency;
 import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
@@ -23,7 +24,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,6 +42,7 @@ public class UserPanelController extends ContentPanelController {
     private CustomJTable table;
     private List<User> userList;
     private User selectedUser;
+    private MyArrayList<Competency> competencies;
     private MyArrayList<Role> roles;
 
 
@@ -66,6 +67,10 @@ public class UserPanelController extends ContentPanelController {
             ApiManager.getIstance().getRoles(apiRoleDelegate);
         });
         newThread2.start();
+        Thread newThread3 = new Thread(() -> {
+            ApiManager.getIstance().getCompetencyList(apiCompetencyDelegate);
+        });
+        newThread3.start();
     }
     
     
@@ -116,7 +121,7 @@ public class UserPanelController extends ContentPanelController {
                 return;
             } else {
                 editBtn.setSelected(false);
-                getCoordinator().navigateToUserForm(selectedUser,roles);
+                getCoordinator().navigateToUserForm(selectedUser,roles,competencies);
             }
         }
     };
@@ -125,7 +130,7 @@ public class UserPanelController extends ContentPanelController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            getCoordinator().navigateToUserForm(null,roles);
+            getCoordinator().navigateToUserForm(null,roles,competencies);
         }
     };
     
@@ -187,13 +192,36 @@ public class UserPanelController extends ContentPanelController {
         }
     };
 
+    private ApiDelegate<Competency> apiCompetencyDelegate = new ApiDelegate<Competency>() {
+        @Override
+        public void onGetAllSuccess(List<Competency> competencies) {
+            setCompetencies(competencies);
+        }
+
+        @Override
+        public void onGetSuccess(Competency competency) {
+        }
+
+        @Override
+        public void onFailure(String message) {
+            showSelectionError(message);
+        }
+
+        @Override
+        public void onCreateSuccess() {
+        }
+    };
     
     public void setRoles(List<Role> roles) {
-        this.roles = new MyArrayList<Role>(roles);
+        this.roles = new MyArrayList<Role>(Role.class,roles);
     }
     
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+    
+    public void setCompetencies(List<Competency> competencies) {
+        this.competencies = new MyArrayList<>(Competency.class,competencies);
     }
     
     @Override
