@@ -5,6 +5,7 @@
  */
 package CAAYcyclic.SystemAdiminClient.model;
 
+import java.util.HashSet;
 import java.util.Set;
 /**
  *
@@ -68,6 +69,7 @@ public class Procedure implements Parcelable{
         parcel.writeInteger(id);
         parcel.writeString(title);
         parcel.writeString(description);
+        parcel.writeStringArray(competencies.toArray(new String[competencies.size()]));
         return parcel;
     }
 
@@ -76,6 +78,12 @@ public class Procedure implements Parcelable{
         this.id = parcel.readInteger();
         this.title = parcel.readString();
         this.description = parcel.readString();
+        String[] competencyArray = parcel.readStringArray();
+        if(competencyArray != null){
+            this.competencies = new HashSet<>();
+            for(String value:competencyArray )
+                this.competencies.add(value);
+        }
     }
     
     @Override

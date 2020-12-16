@@ -7,6 +7,8 @@ package CAAYcyclic.SystemAdiminClient.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -19,6 +21,8 @@ public class User implements Parcelable{
     String surname;
     LocalDate dateOfBirth;
     String role;
+    Set<String> competencies;
+
 
     public User(Integer user_id, String name, String surname, LocalDate dob, String role) {
         this.user_id = user_id;
@@ -101,6 +105,14 @@ public class User implements Parcelable{
     public void setRole(String role) {
         this.role = role;
     }
+    
+    public void setCompetencies(Set<String> competencies) {
+        this.competencies = competencies;
+    }
+    
+    public Set<String> getCompetencies() {
+        return competencies;
+    }
 
     @Override
     public String getParcelableDescription() {
@@ -115,6 +127,7 @@ public class User implements Parcelable{
         parcel.writeString(surname);
         parcel.writeString(dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         parcel.writeString(role);
+        parcel.writeStringArray(competencies.toArray(new String[competencies.size()]));
         return parcel;
     }
 
@@ -125,6 +138,12 @@ public class User implements Parcelable{
         this.surname = parcel.readString();
         this.dateOfBirth = LocalDate.parse((parcel.readString()),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.role = parcel.readString();
+        String[] competencyArray = parcel.readStringArray();
+        if(competencyArray != null){
+            this.competencies = new HashSet<>();
+            for(String value:competencyArray )
+                this.competencies.add(value);
+        }
     }
     
     @Override
