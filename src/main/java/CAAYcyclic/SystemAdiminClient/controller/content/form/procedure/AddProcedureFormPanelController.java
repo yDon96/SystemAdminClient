@@ -6,10 +6,17 @@
 package CAAYcyclic.SystemAdiminClient.controller.content.form.procedure;
 
 import CAAYcyclic.SystemAdiminClient.api.ApiManager;
+import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
+import CAAYcyclic.SystemAdiminClient.model.Competency;
+import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -18,6 +25,8 @@ import java.util.logging.Logger;
 public class AddProcedureFormPanelController extends ProcedureFormPanelController {
 
     private static final Logger LOG = Logger.getLogger(AddProcedureFormPanelController.class.getName());
+    
+    private MyArrayList<Competency> competencies; 
 
     public AddProcedureFormPanelController() {
         super();
@@ -27,8 +36,24 @@ public class AddProcedureFormPanelController extends ProcedureFormPanelControlle
     public void panelWillAppear() {
         super.panelWillAppear(); 
         setButtonAction();
+        if(getParcels() != null){
+            getConpetenciesList();    
+        }
     }
     
+    private void getConpetenciesList(){
+        competencies = new MyArrayList<Competency>(Competency.class); 
+        if(getParcels().containsKey(competencies.getParcelableDescription())){
+            LOG.log(java.util.logging.Level.CONFIG, "Get compitencies from parcel object.");
+            competencies.createFromParcel(getParcels().get(competencies.getParcelableDescription()),Competency.class);
+            DefaultListModel demoList = new DefaultListModel();
+            for (Competency competency: competencies){
+                demoList.addElement(competency.getName());
+            }
+            competencyJList.setModel(demoList);
+        }
+    }
+
     
     
     @Override
@@ -73,9 +98,40 @@ public class AddProcedureFormPanelController extends ProcedureFormPanelControlle
         }
         
         Procedure procedure = new Procedure(title,descriptionTxt.getText().trim());
+        if(competencyJList.getSelectedIndices() != null){
+            Set<String> selectedCompetency = new HashSet<String>();
+            for(int index : competencyJList.getSelectedRow()){
+                selectedCompetency.add(competencies.get(index).getName());
+            }
+            procedure.setCompetencies(selectedCompetency);
+        }
         procedureForm.setSavingText();
         ApiManager.getIstance().createProcedure(procedure, apiDelegate);
     }
+    
+    private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
+        @Override
+        public void onGetAllSuccess(List<Procedure> procedures) {
+            endSavingProcedure();
+        }
+
+        @Override
+        public void onGetSuccess(Procedure procedure) {
+            endSavingProcedure();
+        }
+
+        @Override
+        public void onFailure(String message) {
+            endSavingProcedure();
+            showSelectionError(message);
+        }
+
+        @Override
+        public void onCreateSuccess() {
+            endSavingProcedure();
+            getCoordinator().popBack();
+        }
+    };
 
     @Override
     public Logger getLogger() {
