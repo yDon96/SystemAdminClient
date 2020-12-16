@@ -6,8 +6,8 @@
 package CAAYcyclic.SystemAdiminClient.factory.container;
 
 import CAAYcyclic.SystemAdiminClient.controller.IPanelController;
-import CAAYcyclic.SystemAdiminClient.controller.content.DashBoardPanelController;
 import CAAYcyclic.SystemAdiminClient.controller.bar.MainSideBarController;
+import CAAYcyclic.SystemAdiminClient.controller.content.datapanel.ProcedurePanelController;
 
 /**
  *
@@ -17,7 +17,7 @@ public class HomeContainerViewFactory implements IContainerViewAbstractFactory {
 
     @Override
     public IPanelController getContentPanelController() {
-        return new DashBoardPanelController();//To change body of generated methods, choose Tools | Templates.
+        return new ProcedurePanelController();//To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

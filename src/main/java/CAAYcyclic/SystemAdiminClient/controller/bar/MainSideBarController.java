@@ -52,6 +52,10 @@ public class MainSideBarController extends BarController {
         userBtn.addMouseListener(userBtnAction);
         roleBtn.addMouseListener(roleBtnAction);
         competencyBtn.addMouseListener(competencyBtnAction);
+        
+        //Disable Dashboard
+        dashBtn.setVisible(false);
+        swichAction(procedureBtn);
     }
 
     private MouseAdapter dashBtnAction = new MouseAdapter() {
