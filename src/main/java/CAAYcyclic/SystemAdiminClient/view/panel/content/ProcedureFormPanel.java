@@ -10,6 +10,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -52,6 +53,9 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
         descriptionTxt = new javax.swing.JTextArea();
         jSeparator2 = new javax.swing.JSeparator();
         saveBtn = new CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton();
+        conpetencyFld = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        competencyList = new CustomJList<>();
 
         setBackground(new java.awt.Color(242, 241, 241));
         setForeground(new java.awt.Color(153, 153, 153));
@@ -120,6 +124,12 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
         saveBtn.setText("Save");
         saveBtn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
 
+        conpetencyFld.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        conpetencyFld.setForeground(ApplicationColor.primaryColor.value);
+        conpetencyFld.setText("Competencies");
+
+        jScrollPane1.setViewportView(competencyList);
+
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
@@ -131,21 +141,23 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addComponent(jSeparator2)))
-            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundedPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(conpetencyFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundedPanel1Layout.createSequentialGroup()
                                 .addComponent(panelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(154, 154, 154))
-                            .addComponent(jScrollPane2)
-                            .addComponent(firstFild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(descriptionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(titleTxt)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstFild, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descriptionTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(titleTxt, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addGap(24, 24, 24))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -155,7 +167,7 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
                 .addComponent(panelDescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(firstFild)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +175,11 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
                 .addComponent(descriptionTitle)
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(conpetencyFld)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,6 +258,10 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
         return saveBtn;
     }
 
+    public CustomJList<String> getCompetencyList() {
+        return competencyList;
+    }
+
     public void setTitleInvalid() {
         titleTxt.setForeground(Color.RED);
         titleTxt.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,2,0,Color.RED),BorderFactory.createEmptyBorder(5,5,5,5)));
@@ -259,11 +279,14 @@ public class ProcedureFormPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private CustomJList<String> competencyList;
+    private javax.swing.JLabel conpetencyFld;
     private javax.swing.JLabel descriptionTitle;
     private javax.swing.JTextArea descriptionTxt;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel firstFild;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

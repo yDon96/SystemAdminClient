@@ -50,4 +50,11 @@ public class Director {
         builder.addAddBtn();
         builder.addUpdateBtn();
     }
+    
+    public void constructCompetencyDataPanel(IDataPanelBuilder builder) {
+        builder.setTitle(DataPanelTitle.COMPETENCY.value);
+        builder.setTableHeader(TableViewHeaders.COMPETENCY.value);
+        builder.addAddBtn();
+        builder.addUpdateBtn();
+    }
 }

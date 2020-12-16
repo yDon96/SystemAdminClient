@@ -5,13 +5,11 @@
  */
 package CAAYcyclic.SystemAdiminClient.controller.content.form.procedure;
 
-import CAAYcyclic.SystemAdiminClient.api.ApiManager;
 import CAAYcyclic.SystemAdiminClient.api.delegate.ApiDelegate;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
 import CAAYcyclic.SystemAdiminClient.model.Procedure;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJList;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.ProcedureFormPanel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -33,6 +31,7 @@ public abstract class ProcedureFormPanelController extends ContentPanelControlle
     protected JTextArea descriptionTxt;
     protected JTextField titleTxt;
     protected Procedure procedure;
+    protected CustomJList<String> competencyJList;
 
     public ProcedureFormPanelController() {
         super();
@@ -46,11 +45,12 @@ public abstract class ProcedureFormPanelController extends ContentPanelControlle
         saveBtn = procedureForm.getSaveBtn();
         titleTxt = procedureForm.getTitleTxt();
         descriptionTxt = procedureForm.getDescriptionTxt();
+        competencyJList = procedureForm.getCompetencyList();
     }
 
     protected abstract void setButtonAction();
 
-    private void endSavingProcedure() {
+    protected void endSavingProcedure() {
         procedureForm.setSaveText();
     }
 
@@ -58,30 +58,6 @@ public abstract class ProcedureFormPanelController extends ContentPanelControlle
     protected boolean textRespectPattern(String input){
         return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
     }
-    
-    protected ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
-        @Override
-        public void onGetAllSuccess(List<Procedure> procedures) {
-            endSavingProcedure();
-        }
-
-        @Override
-        public void onGetSuccess(Procedure procedure) {
-            endSavingProcedure();
-        }
-
-        @Override
-        public void onFailure(String message) {
-            endSavingProcedure();
-            showSelectionError(message);
-        }
-
-        @Override
-        public void onCreateSuccess() {
-            endSavingProcedure();
-            getCoordinator().popBack();
-        }
-    };
 
     @Override
     public Logger getLogger() {

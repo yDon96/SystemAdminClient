@@ -25,6 +25,8 @@ public class MainSideBarController extends BarController {
     private JButton procedureBtn;
     private JButton userBtn;
     private JButton roleBtn;
+    private JButton competencyBtn;
+    
 
     public MainSideBarController() {
         super();
@@ -44,10 +46,12 @@ public class MainSideBarController extends BarController {
         procedureBtn = mainSideBarView.getProcedureBtn();
         userBtn = mainSideBarView.getUserBtn();
         roleBtn = mainSideBarView.getRoleBtn();
+        competencyBtn = mainSideBarView.getCompetencyBtn();
         dashBtn.addMouseListener(dashBtnAction);
         procedureBtn.addMouseListener(procedureBtnAction);
         userBtn.addMouseListener(userBtnAction);
         roleBtn.addMouseListener(roleBtnAction);
+        competencyBtn.addMouseListener(competencyBtnAction);
     }
 
     private MouseAdapter dashBtnAction = new MouseAdapter() {
@@ -84,9 +88,19 @@ public class MainSideBarController extends BarController {
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
             super.mousePressed(mouseEvent);
-            LOG.log(java.util.logging.Level.INFO, "UserButton selected.");
+            LOG.log(java.util.logging.Level.INFO, "RoleButton selected.");
             swichAction(roleBtn);
             getCoordinator().switchPanelToRolePanel();
+        }
+    };
+    
+    private MouseAdapter competencyBtnAction = new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+            super.mousePressed(mouseEvent);
+            LOG.log(java.util.logging.Level.INFO, "CompetencyButton selected.");
+            swichAction(competencyBtn);
+            getCoordinator().switchPanelToCompetencyPanel();
         }
     };
 

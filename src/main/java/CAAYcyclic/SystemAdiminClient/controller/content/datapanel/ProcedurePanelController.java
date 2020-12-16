@@ -13,6 +13,8 @@ import CAAYcyclic.SystemAdiminClient.builder.Director;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.impl.TableDataSource;
 import CAAYcyclic.SystemAdiminClient.controller.content.ContentPanelController;
+import CAAYcyclic.SystemAdiminClient.model.Competency;
+import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJTable;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
 import java.awt.event.MouseAdapter;
@@ -39,6 +41,7 @@ public class ProcedurePanelController extends ContentPanelController {
     private CustomJTable table;
     private Procedure selectedProcedure;
     private List<Procedure> procedures;
+    private MyArrayList<Competency> competencies;
 
     public ProcedurePanelController() {
         super();
@@ -49,11 +52,18 @@ public class ProcedurePanelController extends ContentPanelController {
         initComponent();
         setButtonAction();
     }
-
+    
     @Override
-    public void panelDidAppear() {
-        super.panelDidAppear();
-
+    public void panelWillAppear() {
+        super.panelWillAppear();
+        Thread newThread = new Thread(() -> {
+            ApiManager.getIstance().getProcedures(apiDelegate);
+        });
+        newThread.start();
+        Thread newThread2 = new Thread(() -> {
+            ApiManager.getIstance().getCompetencyList(apiCompetencyDelegate);
+        });
+        newThread2.start();
     }
 
     private void initComponent() {
@@ -99,7 +109,7 @@ public class ProcedurePanelController extends ContentPanelController {
                 return;
             } else {
                 editBtn.setSelected(false);
-                getCoordinator().navigateToProcedureForm(procedures.get(table.getSelectedRow()));
+                getCoordinator().navigateToProcedureForm(procedures.get(table.getSelectedRow()),competencies);
             }
         }
     };
@@ -111,7 +121,7 @@ public class ProcedurePanelController extends ContentPanelController {
             LOG.log(java.util.logging.Level.INFO, "Start add action.");
             if (!isLockNavigation()) {
                 addBtn.setSelected(false);
-                getCoordinator().navigateToProcedureForm(null);
+                getCoordinator().navigateToProcedureForm(null,competencies);
             } else {
                 LOG.log(java.util.logging.Level.WARNING, "Cannot swich panel, navigation is locked.");
                 showSelectionError("Wait until data ends updating.");
@@ -134,6 +144,26 @@ public class ProcedurePanelController extends ContentPanelController {
             selectedProcedure = null;
         }
         
+    };
+    
+    private ApiDelegate<Competency> apiCompetencyDelegate = new ApiDelegate<Competency>() {
+        @Override
+        public void onGetAllSuccess(List<Competency> competencies) {
+            setCompetencies(competencies);
+        }
+
+        @Override
+        public void onGetSuccess(Competency competency) {
+        }
+
+        @Override
+        public void onFailure(String message) {
+            showSelectionError(message);
+        }
+
+        @Override
+        public void onCreateSuccess() {
+        }
     };
 
     private ApiDelegate<Procedure> apiDelegate = new ApiDelegate<Procedure>() {
@@ -172,6 +202,10 @@ public class ProcedurePanelController extends ContentPanelController {
 
     private void endUpdate() {
         updateBtn.setText("Refresh");
+    }
+
+    public void setCompetencies(List<Competency> competencies) {
+        this.competencies = new MyArrayList<>(Competency.class,competencies);
     }
 
     @Override

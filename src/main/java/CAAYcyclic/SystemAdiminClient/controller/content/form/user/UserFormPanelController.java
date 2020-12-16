@@ -10,6 +10,7 @@ import CAAYcyclic.SystemAdiminClient.model.MyArrayList;
 import CAAYcyclic.SystemAdiminClient.model.Role;
 import CAAYcyclic.SystemAdiminClient.model.User;
 import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomComboBox;
+import CAAYcyclic.SystemAdiminClient.view.panel.component.CustomJList;
 import CAAYcyclic.SystemAdiminClient.view.panel.content.UserFormPanel;
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ public abstract class UserFormPanelController extends ContentPanelController {
     protected JTextField surnameTxt;
     protected JButton saveBtn;
     protected User user;
+    protected CustomJList<String> competencyJList;
     protected CustomComboBox<String> rolesCbx;
     protected MyArrayList<Role> roles;
     
@@ -59,6 +61,7 @@ public abstract class UserFormPanelController extends ContentPanelController {
         dataChooser = userForm.getDataChooser();
         saveBtn = userForm.getSaveBtn();
         rolesCbx = userForm.getRoleCbx();
+        competencyJList = userForm.getCompetencyList();
     }
     
     public String convertStringFromDate(Date indate)

@@ -18,16 +18,20 @@ import java.util.logging.Logger;
 public class MyArrayList<E extends Parcelable> extends ArrayList<E> implements Parcelable{
     
     Class<E> objectClass;
+    private String type;
     
-    public MyArrayList(){}
+    public MyArrayList(Class<E> type){
+        this.type = type.getCanonicalName();
+    }
     
-    public MyArrayList(List<E> elementList){
+    public MyArrayList(Class<E> type,List<E> elementList){
         this.addAll(elementList);
+        this.type = type.getCanonicalName();
     }
         
     @Override
     public String getParcelableDescription() {
-        return this.getClass().getSimpleName();
+        return this.getClass().getSimpleName() + type;
     }
 
     @Override
