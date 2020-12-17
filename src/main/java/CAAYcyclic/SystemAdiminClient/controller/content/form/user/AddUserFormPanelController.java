@@ -156,7 +156,7 @@ public class AddUserFormPanelController extends UserFormPanelController {
     }
 
     private boolean textRespectPattern(String input) {
-        return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
+        return Pattern.compile("^[a-zA-Z ]+$").matcher(input).matches();
     }
 
     private IComboBoxDelegate comboBoxDelegate = new IComboBoxDelegate() {

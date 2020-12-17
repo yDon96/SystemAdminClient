@@ -55,8 +55,8 @@ public abstract class ProcedureFormPanelController extends ContentPanelControlle
     }
 
 
-    protected boolean textRespectPattern(String input){
-        return Pattern.compile("^[a-zA-Z]+$").matcher(input).matches();
+    protected boolean textRespectPattern(String input) {
+        return Pattern.compile("^[a-zA-Z ]+$").matcher(input).matches();
     }
 
     @Override

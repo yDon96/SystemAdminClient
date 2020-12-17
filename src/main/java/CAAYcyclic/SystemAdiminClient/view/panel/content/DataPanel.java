@@ -122,6 +122,9 @@ public final class DataPanel extends javax.swing.JPanel {
         addBtn.setBackground(ApplicationColor.accentColor.value);
         addBtn.setText("Add");
 
+        jScrollPane3.setAutoscrolls(true);
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(454, 32767));
+
         tableView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -134,8 +137,10 @@ public final class DataPanel extends javax.swing.JPanel {
             }
         ));
         tableView.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        tableView.setMinimumSize(new java.awt.Dimension(300, 100));
-        tableView.setPreferredSize(new java.awt.Dimension(300, 100));
+        tableView.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        tableView.setMinimumSize(new java.awt.Dimension(300, 2147483647));
+        tableView.setPreferredScrollableViewportSize(new java.awt.Dimension(450, 450));
+        tableView.setPreferredSize(new java.awt.Dimension(300, 300));
         tableView.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(tableView);
 
@@ -161,7 +166,7 @@ public final class DataPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
         roundedPanel1Layout.setVerticalGroup(

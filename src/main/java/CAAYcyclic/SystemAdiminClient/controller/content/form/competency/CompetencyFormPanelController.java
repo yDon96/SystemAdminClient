@@ -79,8 +79,8 @@ public class CompetencyFormPanelController extends ContentPanelController {
         return true;
     }
     
-    private boolean textRespectPattern(String input){
-        return Pattern.matches("^[a-zA-Z]+$",input);
+    private boolean textRespectPattern(String input) {
+        return Pattern.compile("^[a-zA-Z ]+$").matcher(input).matches();
     }
 
     private MouseAdapter saveBtnAction = new MouseAdapter() {

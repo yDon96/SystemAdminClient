@@ -7,6 +7,7 @@ package CAAYcyclic.SystemAdiminClient.view.panel.component;
 
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDataSource;
 import CAAYcyclic.SystemAdiminClient.controller.component.jtable.ITableDelegate;
+import java.awt.Dimension;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -69,6 +70,9 @@ public class CustomJTable extends JTable{
         for(int indexRow=0; indexRow< newRowNumber; indexRow++) {
             model.addRow(iTableDataSource.tablePanel(this, indexRow));
         }
+        Dimension dimension = new Dimension();
+        dimension.setSize(this.getSize().getWidth(), this.getRowHeight()*newRowNumber);
+        this.setPreferredSize(dimension);
     }
     
     @Override
