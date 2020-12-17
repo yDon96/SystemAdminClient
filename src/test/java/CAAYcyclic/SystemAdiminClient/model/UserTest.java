@@ -39,7 +39,7 @@ public class UserTest {
     public void testGetId() {
         System.out.println("getId");
         Integer expResult = 5;
-        instance.user_id = 5;
+        instance.userId = 5;
         Integer result = instance.getUser_id();
         assertEquals(expResult, result);
     }
@@ -63,7 +63,7 @@ public class UserTest {
         System.out.println("setId");
         Integer id = 5;
         instance.setUser_id(id);
-        assertEquals(id, instance.user_id);
+        assertEquals(id, instance.userId);
     }
 
     /**
@@ -74,7 +74,7 @@ public class UserTest {
         System.out.println("setId");
         Integer id = null;
         instance.setUser_id(id);
-        assertEquals(id, instance.user_id);
+        assertEquals(id, instance.userId);
     }
 
     /**
