@@ -162,6 +162,10 @@ public class AddUserFormPanelController extends UserFormPanelController {
     private IComboBoxDelegate comboBoxDelegate = new IComboBoxDelegate() {
         @Override
         public void didSelectRowAt(JComboBox combobox, Integer selectedIndexRow) {
+            if(selectedIndexRow - 1 < 0){
+                competencyJList.setEnabled(false);
+                return;
+            }
             if (roles.get(selectedIndexRow - 1).getName().toUpperCase().equals("MAINTAINER")) {
                 competencyJList.setEnabled(true);
             } else {

@@ -81,6 +81,7 @@ public class CustomJList<E> extends JList<E> {
         if(isEnabled()){
             if (selectedRow.contains(indexRow)) {
                 clearSelection();
+                selectedRow.remove(indexRow);
                 setSelectedIndices(convertIntegers(selectedRow));
             } else {
                 clearSelection();

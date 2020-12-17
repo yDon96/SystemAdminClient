@@ -55,9 +55,10 @@ public class EditUserFormPanelController extends UserFormPanelController {
     ;
     
     private void setDefaultCompetencyListState() {
-        if (!user.getRole().toUpperCase().equals("MAINTAINER")) {
+        //Todo: Re-enable when
+        //if (!user.getRole().toUpperCase().equals("MAINTAINER")) {
             competencyJList.setEnabled(false);
-        }
+        //}
     }
 
     ;
@@ -189,11 +190,12 @@ public class EditUserFormPanelController extends UserFormPanelController {
     private IComboBoxDelegate comboBoxDelegate = new IComboBoxDelegate() {
         @Override
         public void didSelectRowAt(JComboBox combobox, Integer selectedIndexRow) {
-            if (roles.get(selectedIndexRow - 1).getName().toUpperCase().equals("MAINTAINER")) {
+            //Todo: Re-enable when
+            /*if (roles.get(selectedIndexRow - 1).getName().toUpperCase().equals("MAINTAINER")) {
                 competencyJList.setEnabled(true);
             } else {
                 competencyJList.setEnabled(false);
-            }
+            }*/
         }
 
         @Override

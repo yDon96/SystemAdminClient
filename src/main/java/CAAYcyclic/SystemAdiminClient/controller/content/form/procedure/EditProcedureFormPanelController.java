@@ -13,7 +13,6 @@ import CAAYcyclic.SystemAdiminClient.model.Procedure;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -57,6 +56,8 @@ public class EditProcedureFormPanelController extends ProcedureFormPanelControll
             }
             competencyJList.setModel(demoList);
             competencyJList.setSelectedElement(procedure.getCompetencies());
+            //Todo: Re-enable when Update call is completed
+            competencyJList.setEnabled(false);
         }
     }
 
