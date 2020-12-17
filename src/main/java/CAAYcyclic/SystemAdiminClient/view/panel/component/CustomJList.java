@@ -22,8 +22,8 @@ import javax.swing.ListModel;
  */
 public class CustomJList<E> extends JList<E> {
 
-    private ArrayList<Integer> originalSelectedRow;
-    private ArrayList<Integer> selectedRow;
+    protected ArrayList<Integer> originalSelectedRow;
+    protected ArrayList<Integer> selectedRow;
 
     public CustomJList(ListModel<E> dataModel) {
         super(dataModel);
