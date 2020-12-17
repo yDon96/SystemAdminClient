@@ -86,7 +86,7 @@ public final class DataPanel extends javax.swing.JPanel {
 
         numberRowLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         numberRowLabel.setForeground(ApplicationColor.primaryColor.value);
-        numberRowLabel.setText("rowLabel");
+        numberRowLabel.setText("Row");
 
         numberOfRow.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         numberOfRow.setForeground(ApplicationColor.accentColor.value);
@@ -107,6 +107,7 @@ public final class DataPanel extends javax.swing.JPanel {
             }
         });
 
+        editBtn.setBackground(new java.awt.Color(255, 255, 255));
         editBtn.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         editBtn.setForeground(ApplicationColor.primaryColor.value);
         editBtn.setIcon(new ImageIcon(((new ImageIcon("../../../resource/icon/edit.png")).getImage()).getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH)));
@@ -153,7 +154,7 @@ public final class DataPanel extends javax.swing.JPanel {
                 .addComponent(numberOfRow)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(numberRowLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
                 .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
