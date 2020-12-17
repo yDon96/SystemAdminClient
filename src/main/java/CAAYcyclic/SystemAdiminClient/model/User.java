@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class User implements Parcelable{
     
-    Integer user_id;
+    Integer userId;
     String name;
     String surname;
     LocalDate dateOfBirth;
@@ -25,7 +25,7 @@ public class User implements Parcelable{
 
 
     public User(Integer user_id, String name, String surname, LocalDate dob, String role) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dob;
@@ -63,7 +63,7 @@ public class User implements Parcelable{
     }
 
     public Integer getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public String getName() {
@@ -87,7 +87,7 @@ public class User implements Parcelable{
     }
 
     public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public void setName(String name) {
@@ -122,7 +122,7 @@ public class User implements Parcelable{
     @Override
     public Parcel convertToParcel() {
         Parcel parcel = new Parcel();
-        parcel.writeInteger(user_id);
+        parcel.writeInteger(userId);
         parcel.writeString(name);
         parcel.writeString(surname);
         parcel.writeString(dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -133,7 +133,7 @@ public class User implements Parcelable{
 
     @Override
     public void createFromParcel(Parcel parcel) {
-        this.user_id = parcel.readInteger();
+        this.userId = parcel.readInteger();
         this.name = parcel.readString();
         this.surname = parcel.readString();
         this.dateOfBirth = LocalDate.parse((parcel.readString()),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -148,6 +148,6 @@ public class User implements Parcelable{
     
     @Override
     public Object[] convetToObjectArray(){
-        return new Object[] {user_id , name, surname, dateOfBirth.format(DateTimeFormatter.ISO_DATE), role};
+        return new Object[] {userId , name, surname, dateOfBirth.format(DateTimeFormatter.ISO_DATE), role};
     }
 }
