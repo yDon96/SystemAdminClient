@@ -5,6 +5,8 @@
  */
 package CAAYcyclic.SystemAdiminClient.model;
 
+import java.util.Objects;
+
 /**
  *
  * @author Youssef
@@ -52,5 +54,34 @@ public class Competency implements Parcelable{
     @Override
     public Object[] convetToObjectArray(){
         return new Object[] {id , name};
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Competency other = (Competency) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 }

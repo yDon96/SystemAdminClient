@@ -8,6 +8,7 @@ package CAAYcyclic.SystemAdiminClient.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -22,7 +23,6 @@ public class User implements Parcelable{
     LocalDate dateOfBirth;
     String role;
     Set<String> competencies;
-
 
     public User(Integer user_id, String name, String surname, LocalDate dob, String role) {
         this.userId = user_id;
@@ -44,17 +44,17 @@ public class User implements Parcelable{
         this.surname = surname;
         this.dateOfBirth = dob;
     }
-    
+
     public User(String name, String surname, String dob) {
         this.name = name;
         this.surname = surname;
-        this.dateOfBirth = LocalDate.parse(dob,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.dateOfBirth = LocalDate.parse(dob, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
-    
+
     public User(String name, String surname, String dob, String role) {
         this.name = name;
         this.surname = surname;
-        this.dateOfBirth = LocalDate.parse(dob,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.dateOfBirth = LocalDate.parse(dob, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.role = role;
 
     }
@@ -77,7 +77,7 @@ public class User implements Parcelable{
     public LocalDate getDob() {
         return dateOfBirth;
     }
-    
+
     public String getDobString() {
         return dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
@@ -105,11 +105,11 @@ public class User implements Parcelable{
     public void setRole(String role) {
         this.role = role;
     }
-    
+
     public void setCompetencies(Set<String> competencies) {
         this.competencies = competencies;
     }
-    
+
     public Set<String> getCompetencies() {
         return competencies;
     }
@@ -125,7 +125,11 @@ public class User implements Parcelable{
         parcel.writeInteger(userId);
         parcel.writeString(name);
         parcel.writeString(surname);
-        parcel.writeString(dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        String date = null;
+        if (dateOfBirth != null) {
+            date = dateOfBirth.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
+        parcel.writeString(date);
         parcel.writeString(role);
         parcel.writeStringArray(competencies.toArray(new String[competencies.size()]));
         return parcel;
@@ -136,18 +140,72 @@ public class User implements Parcelable{
         this.userId = parcel.readInteger();
         this.name = parcel.readString();
         this.surname = parcel.readString();
-        this.dateOfBirth = LocalDate.parse((parcel.readString()),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String date = parcel.readString();
+        if (date != null) {
+            this.dateOfBirth = LocalDate.parse((date), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
         this.role = parcel.readString();
         String[] competencyArray = parcel.readStringArray();
-        if(competencyArray != null){
+        if (competencyArray != null) {
             this.competencies = new HashSet<>();
-            for(String value:competencyArray )
+            for (String value : competencyArray) {
                 this.competencies.add(value);
+            }
         }
     }
-    
-    @Override
-    public Object[] convetToObjectArray(){
-        return new Object[] {userId , name, surname, dateOfBirth.format(DateTimeFormatter.ISO_DATE), role};
+
+    public Object[] convetToObjectArray() {
+        String date = null;
+        if (dateOfBirth != null) {
+            date = dateOfBirth.format(DateTimeFormatter.ISO_DATE);
+        }
+        return new Object[]{userId, name, surname, date, role};
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.userId);
+        hash = 43 * hash + Objects.hashCode(this.name);
+        hash = 43 * hash + Objects.hashCode(this.surname);
+        hash = 43 * hash + Objects.hashCode(this.dateOfBirth);
+        hash = 43 * hash + Objects.hashCode(this.role);
+        hash = 43 * hash + Objects.hashCode(this.competencies);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
+            return false;
+        }
+        if (!Objects.equals(this.userId, other.userId)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateOfBirth, other.dateOfBirth)) {
+            return false;
+        }
+        if (!Objects.equals(this.competencies, other.competencies)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

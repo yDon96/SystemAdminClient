@@ -20,7 +20,7 @@ public class CustomComboBox<T> extends JComboBox<T> {
 
     private Integer initialIndex = 0;
 
-    private IComboBoxDelegate comboBoxDelegate;
+    protected IComboBoxDelegate comboBoxDelegate;
 
     public CustomComboBox(ComboBoxModel<T> aModel) {
         super(aModel);

@@ -22,14 +22,14 @@ import CAAYcyclic.SystemAdiminClient.builder.AlertDialog.IAlertBuilder;
  */
 public class AlertDialogBuilder implements IAlertBuilder {
     
-    private String title;
-    private String message;
-    private String positiveTitle;
-    private String negativeTitle;
-    private MouseAdapter positiveAction;
-    private MouseAdapter negativeAction;
-    private AlertJDialog dialog;
-    private JFrame parentFrame;
+    protected String title;
+    protected String message;
+    protected String positiveTitle;
+    protected String negativeTitle;
+    protected MouseAdapter positiveAction;
+    protected MouseAdapter negativeAction;
+    protected AlertJDialog dialog;
+    protected JFrame parentFrame;
     
     private static final Logger LOG = Logger.getLogger(AlertDialogBuilder.class.getName());
 

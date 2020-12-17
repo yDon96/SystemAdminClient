@@ -14,11 +14,11 @@ import CAAYcyclic.SystemAdiminClient.view.panel.content.DataPanel;
  */
 public class DataPanelBuilder implements IDataPanelBuilder{
 
-    private String title;
-    private String[] tableHeader;
-    private boolean shouldAddBtnVisible = false;
-    private boolean shouldEditBtnVisible = false;
-    private boolean shouldUpdateBtnVisible = false;
+    protected String title;
+    protected String[] tableHeader;
+    protected boolean shouldAddBtnVisible = false;
+    protected boolean shouldEditBtnVisible = false;
+    protected boolean shouldUpdateBtnVisible = false;
 
     
     @Override
