@@ -6,6 +6,7 @@
 package CAAYcyclic.SystemAdiminClient.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 /**
  *
@@ -90,5 +91,44 @@ public class Procedure implements Parcelable{
     public Object[] convetToObjectArray(){
         return new Object[] {id , title, description};
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.title);
+        hash = 79 * hash + Objects.hashCode(this.description);
+        hash = 79 * hash + Objects.hashCode(this.competencies);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Procedure other = (Procedure) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.competencies, other.competencies)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,15 +6,8 @@
  */
 package CAAYcyclic.SystemAdiminClient.view.panel.content;
 
-import CAAYcyclic.SystemAdiminClient.view.panel.component.RoundedButton;
 import CAAYcyclic.SystemAdiminClient.enumeration.ApplicationColor;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -75,7 +69,7 @@ public final class DataPanel extends javax.swing.JPanel {
 
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         titleLabel.setForeground(ApplicationColor.primaryColor.value);
-        titleLabel.setText("User");
+        titleLabel.setText("DataPanel");
         titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         titleLabel.setMaximumSize(new java.awt.Dimension(300, 46));
 
@@ -243,6 +237,10 @@ public final class DataPanel extends javax.swing.JPanel {
         button.repaint();
         button.revalidate();
 
+    }
+
+    public JLabel getTitleLabel() {
+        return titleLabel;
     }
 
     public JButton getAddBtn() {
